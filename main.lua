@@ -8,6 +8,7 @@ local Camera = game.Workspace.CurrentCamera
 local Keybind = Enum.UserInputType.MouseButton2 
 
 local AimbotEnabled = false
+local AimbotToggleEnabled = false
 local Target = nil
 local ESPEnabled = false
 local ESPHighlights = {}
@@ -405,7 +406,7 @@ SettingsFrame.Visible = false
 local SettingsTitle = Instance.new("TextLabel")
 SettingsTitle.Size = UDim2.new(0, 250, 0, 40)
 SettingsTitle.Position = UDim2.new(0.1, 0, 0.02, 0)
-SettingsTitle.Text = "Enhanced Settings"
+SettingsTitle.Text = "Rivals Script"
 SettingsTitle.BackgroundTransparency = 1
 SettingsTitle.TextColor3 = ThemeColors.Text
 SettingsTitle.TextSize = 22
@@ -701,9 +702,12 @@ end
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed and input.UserInputType == Keybind then
-        AimbotEnabled = true
-        Target = GetClosestPlayerToCursor()
-        AimbotStatus.Text = "Aimbot: On"
+
+        if AimbotToggleEnabled then
+            AimbotEnabled = true
+            Target = GetClosestPlayerToCursor()
+            AimbotStatus.Text = "Aimbot: On"
+        end
     end
 end)
 
@@ -716,7 +720,8 @@ UserInputService.InputEnded:Connect(function(input, gameProcessed)
 end)
 
 RunService.RenderStepped:Connect(function()
-    if AimbotEnabled and Target then
+
+    if AimbotEnabled and AimbotToggleEnabled and Target then
         local mouseLocation = UserInputService:GetMouseLocation()
         local screenPosition = Camera:WorldToViewportPoint(Target.Position)
         local delta = (Vector2.new(screenPosition.X, screenPosition.Y) - mouseLocation) * 0.2 
@@ -727,14 +732,17 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
-local aimbotToggle, getAimbotState, setAimbotState = createToggle(SettingsFrame, UDim2.new(0.1, 0, 0.35, 0), "Aimbot", AimbotEnabled)
+local aimbotToggle, getAimbotState, setAimbotState = createToggle(SettingsFrame, UDim2.new(0.1, 0, 0.35, 0), "Aimbot", AimbotToggleEnabled)
 
 aimbotToggle:GetChildren()[2].InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        AimbotEnabled = not AimbotEnabled
-        AimbotStatus.Text = "Aimbot: " .. (AimbotEnabled and "On" or "Off")
-        AimbotStatus.TextColor3 = AimbotEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
-        AimbotIcon.TextColor3 = AimbotEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
+        AimbotToggleEnabled = not AimbotToggleEnabled
+        AimbotEnabled = false  
+        Target = nil
+
+        AimbotStatus.Text = "Aimbot: " .. (AimbotToggleEnabled and "On" or "Off")
+        AimbotStatus.TextColor3 = AimbotToggleEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
+        AimbotIcon.TextColor3 = AimbotToggleEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
     end
 end)
 
@@ -767,9 +775,9 @@ local function updateUI()
     NoClipStatus.TextColor3 = NoClipEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
     NoClipIcon.TextColor3 = NoClipEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
 
-    AimbotStatus.Text = "Aimbot: " .. (AimbotEnabled and "On" or "Off")
-    AimbotStatus.TextColor3 = AimbotEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
-    AimbotIcon.TextColor3 = AimbotEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
+    AimbotStatus.Text = "Aimbot: " .. (AimbotToggleEnabled and "On" or "Off")
+    AimbotStatus.TextColor3 = AimbotToggleEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
+    AimbotIcon.TextColor3 = AimbotToggleEnabled and ThemeColors.Accent or Color3.fromRGB(150, 150, 150)
 end
 
 updateUI()
