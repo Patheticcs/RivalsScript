@@ -21,7 +21,7 @@
 
     <!-- Favicon -->
     <link rel="icon" href="https://tr.rbxcdn.com/180DAY-f4af8d3a632c3455448c93a0380222fb/256/256/Image/Webp/noFilter" type="image/webp">
-</head>
+
     <style>
         body, html {
             margin: 0;
@@ -205,9 +205,73 @@
             0%, 100% { opacity: 0.4; }
             50% { opacity: 0.8; }
         }
+
+        /* New styles for blur overlay and enter button */
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: backdrop-filter 1s ease, opacity 1s ease;
+        }
+
+        .enter-button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+            animation: button-pulse 2s infinite;
+        }
+
+        .enter-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        @keyframes button-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Mobile support */
+        @media (max-width: 768px) {
+            code {
+                font-size: 1em;
+                padding: 15px 20px;
+            }
+
+            .enter-button {
+                font-size: 1.2em;
+                padding: 10px 20px;
+            }
+
+            .click-me {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="blur-overlay">
+        <button class="enter-button">Enter</button>
+    </div>
+
     <div class="grid"></div>
     <canvas id="particles"></canvas>
     <div class="container">
@@ -219,9 +283,24 @@
     </div>
     <div class="click-me">Click to copy</div>
 
-    <script>
+    <!-- Audio element -->
+    <audio id="background-audio" src="https://rivals-script.vercel.app/audios/obsessed%20prod%20444jet.mp3" loop></audio>
 
-        
+    <script>
+        // Handle the enter button click
+        const enterButton = document.querySelector('.enter-button');
+        const blurOverlay = document.querySelector('.blur-overlay');
+        const audio = document.getElementById('background-audio');
+
+        enterButton.addEventListener('click', () => {
+            blurOverlay.style.backdropFilter = 'blur(0)';
+            blurOverlay.style.opacity = '0';
+            setTimeout(() => {
+                blurOverlay.classList.add('hidden');
+            }, 1000); // Match the transition duration
+            audio.play();
+        });
+
         // 3D Hover effect
         const codeContainer = document.querySelector('.code-container');
         const code = document.querySelector('code');
