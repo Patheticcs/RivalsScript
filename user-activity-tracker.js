@@ -478,7 +478,6 @@ async function retryFailedLogs() {
 
 document.addEventListener("click", (event) => {
     clicks.left++;
-    resetIdleTime();
     const element = event.target;
 
     const elementDetails = {
@@ -507,7 +506,6 @@ document.addEventListener("click", (event) => {
 
 document.addEventListener("contextmenu", (event) => {
     clicks.right++;
-    resetIdleTime();
     const element = event.target;
 
     const elementDetails = {
@@ -536,7 +534,6 @@ document.addEventListener("contextmenu", (event) => {
 
 document.addEventListener("keydown", (event) => {
     keystrokes++;
-    resetIdleTime();
     if (["Backspace", "Enter", "Shift", "Control", "Alt", "Tab", "CapsLock", "Escape"].includes(event.key)) {
         specialKeys.push(event.key);
         const specialKeyData = {
@@ -571,7 +568,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("scroll", () => {
-    resetIdleTime();
     const scrollY = window.scrollY;
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
     scrollDepth = Math.round((scrollY / totalHeight) * 100);
@@ -591,7 +587,6 @@ document.addEventListener("scroll", () => {
 
 document.addEventListener("mousemove", () => {
     mouseMovements++;
-    resetIdleTime();
 });
 
 document.addEventListener("submit", (event) => {
