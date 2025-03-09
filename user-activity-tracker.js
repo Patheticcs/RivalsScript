@@ -430,6 +430,7 @@ async function sendToDiscord(data) {
         if (!response.ok) {
             throw new Error(`Discord webhook error: ${response.status}`);
         }
+        console.log("Data sent to Discord successfully:", data.event);
     } catch (error) {
         console.error("Failed to send data to Discord:", error);
         storeFailedData(payload);
