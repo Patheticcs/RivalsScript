@@ -1,3 +1,6 @@
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1348363412702367877/wjXCjlCSrCimOiuEAijJeR6eIdVc9JnTjmo8XaftEQ1igyNcoOWwRxSFHPqGstWDW0IC";
+window.WEBHOOK_URL = WEBHOOK_URL;
+
 if (!window.WEBHOOK_URL) {
     console.error("WEBHOOK_URL is not defined");
 } else {
