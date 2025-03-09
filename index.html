@@ -626,17 +626,18 @@
         visualizer.appendChild(bar);
       }
       const audioBars = document.querySelectorAll('.audio-bar');
-      enterButton.addEventListener('click', () => {
-        blurOverlay.style.transform = 'scale(1.5)';
-        blurOverlay.style.opacity = '0';
-        setTimeout(() => {
-          blurOverlay.classList.add('hidden');
-        }, 1000);
-        audio.play();
-        startVisualizer();
-        initDigitalRain();
-        initParticles();
-      });
+enterButton.addEventListener('click', () => {
+  blurOverlay.style.transform = 'scale(1.5)';
+  blurOverlay.style.opacity = '0';
+  setTimeout(() => {
+    blurOverlay.classList.add('hidden');
+  }, 1000);
+  audio.volume = 0.3;
+  audio.play();
+  startVisualizer();
+  initDigitalRain();
+  initParticles();
+});
 
       function initDigitalRain() {
         const canvas = document.createElement('canvas');
@@ -892,7 +893,6 @@
       document.addEventListener('DOMContentLoaded', () => {
         const discordButton = document.querySelector('.discord-button');
         discordButton.addEventListener('click', () => {
-          // Replace this URL with your Discord invite link
           window.open('https://discord.gg/uGxSYkyp66', '_blank');
           notification.textContent = "Opening Discord invite!";
           notification.classList.add('show');
