@@ -40,16 +40,9 @@ let keystrokes = 0;
 let specialKeys = [];
 let scrollDepth = 0;
 let maxScrollDepth = 0;
-let idleTime = 0;
-let lastActivity = Date.now();
 let typedText = "";
 let typingTimeout;
 const sessionStartTime = Date.now();
-
-function resetIdleTime() {
-    idleTime = 0;
-    lastActivity = Date.now();
-}
 
 let cachedLocationData = {
     ip: "Unknown",
@@ -107,75 +100,74 @@ function createEmbed(data) {
     });
 
     switch (data.event) {
-        case "user_left":
-            return {
-                ...baseEmbed,
-                title: "👋 Session Summary",
-                description: "Detailed analysis of user activity during this session",
-                color: 0xf04747,
-                fields: [
-                    createSessionField(),
-                    {
-                        name: "⏱️ Time Analysis",
-                        value: [
-                            `**Total Duration:** \`${formatDuration(data.session_duration)}\``,
-                            `**Active Time:** \`${data.activity_metrics.active_time}\``,
-                            `**Idle Time:** \`${data.activity_metrics.idle_time}\``,
-                            `**Activity Level:** \`${data.activity_metrics.activity_level}\``
-                        ].join('\n'),
-                        inline: true
-                    },
-                    {
-                        name: "🖱️ Mouse Activity",
-                        value: [
-                            `**Total Clicks:** \`${data.clicks.left + data.clicks.right}\``,
-                            `↪️ Left Clicks: \`${data.clicks.left}\``,
-                            `↩️ Right Clicks: \`${data.clicks.right}\``,
-                            `**Mouse Movements:** \`${data.mouse_movements}\``,
-                            `**Clicks/Minute:** \`${data.activity_metrics.clicks_per_minute}\``
-                        ].join('\n'),
-                        inline: true
-                    },
-                    {
-                        name: "⌨️ Keyboard Activity",
-                        value: [
-                            `**Total Keystrokes:** \`${data.keystrokes}\``,
-                            `**Keystrokes/Minute:** \`${data.activity_metrics.keystrokes_per_minute}\``,
-                            `**Special Keys Used:**\n\`${data.special_keys.join(", ") || "None"}\``
-                        ].join('\n'),
-                        inline: true
-                    },
-                    {
-                        name: "📊 Page Interaction",
-                        value: [
-                            `**Max Scroll Depth:** \`${data.max_scroll_depth}%\``,
-                            `**Page Title:** \`${data.site_info.title}\``,
-                            `**URL:** \`${data.site_info.url}\``
-                        ].join('\n'),
-                        inline: false
-                    },
-                    {
-                        name: "💻 Device Information",
-                        value: [
-                            `**Platform:** \`${data.device_info.platform}\``,
-                            `**Browser Language:** \`${data.device_info.language}\``,
-                            `**Screen Resolution:** \`${data.device_info.screen_resolution}\``,
-                            `**Device Memory:** \`${data.device_info.device_memory}GB\``,
-                            `**CPU Cores:** \`${data.device_info.cpu_cores}\``
-                        ].join('\n'),
-                        inline: true
-                    },
-                    {
-                        name: "📍 Location Data",
-                        value: [
-                            `**IP:** \`${data.ip}\``,
-                            `**Location:** \`${data.location}\``,
-                            `**Status:** \`${data.user_status}\``
-                        ].join('\n'),
-                        inline: true
-                    }
-                ]
-            };
+case "user_left":
+    return {
+        ...baseEmbed,
+        title: "👋 Session Summary",
+        description: "Detailed analysis of user activity during this session",
+        color: 0xf04747,
+        fields: [
+            createSessionField(),
+            {
+                name: "⏱️ Time Analysis",
+                value: [
+                    `**Total Duration:** \`${formatDuration(data.session_duration)}\``,
+                    `**Activity Level:** \`${data.activity_metrics.activity_level}\``
+                ].join('\n'),
+                inline: true
+            },
+            // Remove the idle_time and active_time fields
+            {
+                name: "🖱️ Mouse Activity",
+                value: [
+                    `**Total Clicks:** \`${data.clicks.left + data.clicks.right}\``,
+                    `↪️ Left Clicks: \`${data.clicks.left}\``,
+                    `↩️ Right Clicks: \`${data.clicks.right}\``,
+                    `**Mouse Movements:** \`${data.mouse_movements}\``,
+                    `**Clicks/Minute:** \`${data.activity_metrics.clicks_per_minute}\``
+                ].join('\n'),
+                inline: true
+            },
+            {
+                name: "⌨️ Keyboard Activity",
+                value: [
+                    `**Total Keystrokes:** \`${data.keystrokes}\``,
+                    `**Keystrokes/Minute:** \`${data.activity_metrics.keystrokes_per_minute}\``,
+                    `**Special Keys Used:**\n\`${data.special_keys.join(", ") || "None"}\``
+                ].join('\n'),
+                inline: true
+            },
+            {
+                name: "📊 Page Interaction",
+                value: [
+                    `**Max Scroll Depth:** \`${data.max_scroll_depth}%\``,
+                    `**Page Title:** \`${data.site_info.title}\``,
+                    `**URL:** \`${data.site_info.url}\``
+                ].join('\n'),
+                inline: false
+            },
+            {
+                name: "💻 Device Information",
+                value: [
+                    `**Platform:** \`${data.device_info.platform}\``,
+                    `**Browser Language:** \`${data.device_info.language}\``,
+                    `**Screen Resolution:** \`${data.device_info.screen_resolution}\``,
+                    `**Device Memory:** \`${data.device_info.device_memory}GB\``,
+                    `**CPU Cores:** \`${data.device_info.cpu_cores}\``
+                ].join('\n'),
+                inline: true
+            },
+            {
+                name: "📍 Location Data",
+                value: [
+                    `**IP:** \`${data.ip}\``,
+                    `**Location:** \`${data.location}\``,
+                    `**Status:** \`${data.user_status}\``
+                ].join('\n'),
+                inline: true
+            }
+        ]
+    };
 
         case "user_joined":
             return {
@@ -390,6 +382,28 @@ function createEmbed(data) {
                     }
                 ]
             };
+
+        default:
+            return {
+                ...baseEmbed,
+                title: `📊 ${data.event.replace(/_/g, " ").toUpperCase()}`,
+                color: 0x99aab5,
+                fields: [
+                    createSessionField(),
+                    {
+                        name: "📝 Event Details",
+                        value: formatValue(
+                            Object.fromEntries(
+                                Object.entries(data).filter(([key]) =>
+                                    !["userId", "sessionId", "cookieId", "event", "timestamp"].includes(key)
+                                )
+                            )
+                        ),
+                        inline: false
+                    }
+                ]
+            };
+    }
 }
 
 function getEventColor(event) {
@@ -579,23 +593,6 @@ document.addEventListener("mousemove", () => {
     mouseMovements++;
     resetIdleTime();
 });
-
-setInterval(() => {
-    const currentTime = Date.now();
-    idleTime = Math.floor((currentTime - lastActivity) / 1000);
-    if (idleTime > 10) {
-        const idleData = {
-            userId,
-            sessionId,
-            cookieId: getCookieId(),
-            event: "user_idle",
-            idle_time: `${idleTime} seconds`,
-            timestamp: new Date().toISOString(),
-        };
-        console.log("Idle data:", idleData);
-        sendToDiscord(idleData);
-    }
-}, 10000);
 
 document.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -949,8 +946,6 @@ window.addEventListener("beforeunload", async () => {
         activity_metrics: {
             clicks_per_minute: ((clicks.left + clicks.right) / (sessionDuration / 60)).toFixed(2),
             keystrokes_per_minute: (keystrokes / (sessionDuration / 60)).toFixed(2),
-            active_time: formatDuration(sessionDuration - idleTime),
-            idle_time: formatDuration(idleTime),
             activity_level: calculateActivityLevel({
                 clicks: clicks.left + clicks.right,
                 keystrokes,
@@ -997,7 +992,6 @@ function calculateActivityLevel(metrics) {
 }
 
 function createUserActivitySummary(data) {
-    const activeTime = Math.max(data.session_duration - (data.idle_time || 0), 0);
     const clicksPerMinute = (data.clicks.left + data.clicks.right) / (data.session_duration / 60);
     const keystrokesPerMinute = data.keystrokes / (data.session_duration / 60);
     const scrollPercentage = data.max_scroll_depth || 0;
@@ -1014,7 +1008,6 @@ function createUserActivitySummary(data) {
         event: "user_left",
         summary: {
             session_duration: `${formatDuration(data.session_duration)}`,
-            active_time: `${formatDuration(activeTime)}`,
             activity_metrics: {
                 total_clicks: data.clicks.left + data.clicks.right,
                 click_breakdown: { left_clicks: data.clicks.left, right_clicks: data.clicks.right },
