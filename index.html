@@ -175,16 +175,13 @@
         z-index: -1
       }
 
-      .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        position: relative;
-        z-index: 1;
-        gap: 30px;
-      }
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
 
       .code-container,
       .discord-container {
@@ -851,33 +848,222 @@
         }
       }
 
-      @media (max-width:768px) {
+ /* Base responsive container */
 
-        code,
-        .discord-button {
-          font-size: 1em;
-          padding: 15px 20px
-        }
 
-        .enter-button {
-          font-size: 1.2em;
-          padding: 10px 20px
-        }
+/* Media queries for different device sizes */
+/* Mobile devices (portrait) */
+@media only screen and (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+    gap: 20px;
+  }
+  
+  code, .discord-button {
+    font-size: 1.1em;
+    padding: 16px 20px;
+  }
+  
+  .loader-logo img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .section-title h2 {
+    font-size: 1.8em;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature-card {
+    padding: 20px;
+  }
+  
+  .corner-decoration {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .enter-button {
+    padding: 12px 30px;
+    font-size: 1.2em;
+  }
+  
+  .logo {
+    max-width: 150px;
+  }
+}
 
-        .click-me {
-          font-size: 12px
-        }
+/* Mobile devices (landscape) and small tablets */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .container {
+    gap: 25px;
+  }
+  
+  code, .discord-button {
+    font-size: 1.3em;
+    padding: 20px 24px;
+  }
+  
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  
+  .corner-decoration {
+    width: 100px;
+    height: 100px;
+  }
+}
 
-        .corner-decoration {
-          width: 100px;
-          height: 100px
-        }
+/* Tablets and small laptops */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .code-container, .discord-container {
+    transform: scale(0.95);
+  }
+}
 
-        .audio-visualizer {
-          width: 150px;
-          height: 30px
-        }
-      }
+/* Larger laptops and desktops */
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+  .features-grid {
+    max-width: 1000px;
+  }
+}
+
+/* Touch-specific adjustments */
+@media (hover: none) {
+  /* Disable hover animations on touch devices */
+  .code-container:hover code,
+  .discord-container:hover .discord-button,
+  .feature-card:hover {
+    transform: none;
+    animation: none;
+  }
+  
+  /* Add active state for touch */
+  .code-container:active code,
+  .discord-container:active .discord-button {
+    transform: scale(0.98);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  }
+  
+  .feature-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Orientation handling */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .container {
+    padding-top: 10px;
+    justify-content: flex-start;
+  }
+  
+  .blur-overlay {
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+  
+  .logo {
+    margin-bottom: 20px;
+  }
+  
+  .features-container {
+    padding: 30px 20px;
+  }
+  
+  .section-title {
+    margin-bottom: 25px;
+  }
+  
+  .audio-visualizer {
+    bottom: 20px;
+  }
+}
+
+/* Specific adjustments for features and animations */
+@media (max-width: 768px) {
+  /* Simplify animations on mobile to improve performance */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .grid, .grid-overlay {
+    background-size: 30px 30px;
+  }
+  
+  /* Make loader more compact */
+  .loader-content {
+    gap: 20px;
+  }
+  
+  /* Fix positioning for notifications */
+  .notification {
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  /* Better handling of elements that might overflow */
+  .click-me {
+    bottom: 10px;
+    font-size: 12px;
+  }
+}
+
+/* Fix for SVG and canvas elements */
+@media (max-width: 1024px) {
+  canvas, .digital-rain {
+    height: 100vh; /* Use viewport height instead of percentage */
+    width: 100vw;  /* Use viewport width instead of percentage */
+    left: 0;
+    top: 0;
+    position: fixed;
+  }
+}
+
+/* Improved font sizing for better readability */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .loader-text {
+    font-size: 14px;
+  }
+  
+  .loader-percentage {
+    font-size: 12px;
+  }
+}
+
+/* Fix for viewport height issues on mobile browsers */
+.container, .blur-overlay {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Safe area insets for notched phones */
+@supports (padding: max(0px)) {
+  .container, .blur-overlay, .notification {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Add JS to handle viewport height on mobile browsers */
     </style>
   </head>
   <body>
@@ -1446,6 +1632,38 @@ enterButton.addEventListener('click', () => {
           }, 2000);
         });
       });
+
+      // Add this script to the end of your HTML body
+document.addEventListener('DOMContentLoaded', function() {
+  // First we get the viewport height and multiply it by 1% to get a value for a vh unit
+  let vh = window.innerHeight * 0.01;
+  // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  
+  // We listen to the resize event
+  window.addEventListener('resize', () => {
+    // We execute the same script as before
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  });
+  
+  // Handle orientation change specifically
+  window.addEventListener('orientationchange', () => {
+    // Small timeout to ensure the browser has completed the orientation change
+    setTimeout(() => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }, 100);
+  });
+  
+  // Add meta viewport tag if not present (place this in your head if not already there)
+  if (!document.querySelector('meta[name="viewport"]')) {
+    const meta = document.createElement('meta');
+    meta.name = 'viewport';
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+    document.getElementsByTagName('head')[0].appendChild(meta);
+  }
+});
     </script>
   <script>
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1348363412702367877/wjXCjlCSrCimOiuEAijJeR6eIdVc9JnTjmo8XaftEQ1igyNcoOWwRxSFHPqGstWDW0IC";
