@@ -9,27 +9,30 @@
 
 https://discord.gg/uGxSYkyp66
 
-local WHITELIST = { -- Replace with teammates usernames or etc, wont lock on or autoshoot them
+-- Configuration Settings --
+
+local WHITELIST = { -- Add teammates' usernames to prevent locking onto or auto-shooting them
     "Friend1",
     "Friend2"
 }
 
+-- Aimbot Settings --
+local AimbotEnabled = false       -- Enable/Disable Aimbot by default
+local AimbotToggleEnabled = false -- Allow toggling Aimbot on/off
 
-local AimbotEnabled = false -- Set these 2 to true to have it enabled by default
-local AimbotToggleEnabled = false -- Set these 2 to true to have it enabled by default
+local AutoShootEnabled = false    -- Automatically shoot when a target is locked
 
-local AutoShootEnabled = false -- Set to true for this to be enabled by default
+local BASE_SENSITIVITY = 0.5      -- Base sensitivity for Aimbot precision
 
-local BASE_SENSITIVITY = 0.5 -- Base sens for aimbot
+-- Movement Settings --
+local InfiniteJumpEnabled = false -- Enable/Disable Infinite Jump
+local WalkSpeedEnabled = false    -- Enable/Disable Walk Speed modification
+local DefaultWalkSpeed = 16       -- Default walking speed
 
-local InfiniteJumpEnabled = false -- Set to true for this to be enabled by default
+local NoClipEnabled = false       -- Enable/Disable NoClip mode
 
-local ESPEnabled = false -- Set to true for this to be enabled by default
-
-local WalkSpeedEnabled = false -- Set to true for this to be enabled by default
-local DefaultWalkSpeed = 16 -- Base walk speed
-
-local NoClipEnabled = false -- Set to true for this to be enabled by default
+-- ESP (Wallhack) Settings --
+local ESPEnabled = false          -- Enable/Disable ESP (Extra Sensory Perception)
 
 
 ]]--
