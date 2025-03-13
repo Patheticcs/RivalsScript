@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -1098,7 +1099,24 @@
     <div class="container">
       <div class="code-container">
         <div class="glow"></div>
-        <code>loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/RivalsScript/refs/heads/main/main.lua",true))()</code>
+<pre style="white-space: pre-wrap;"><code>
+local Config = {
+    SENSITIVITY_MULTIPLIER = 0.5,
+    AimbotToggleEnabled = false,
+    AimbotMode = "Hold",
+    ESPEnabled = false,
+    AutoShootEnabled = false,
+    InfiniteJumpEnabled = false,
+    WalkSpeedEnabled = false,
+    WalkSpeed = 100,
+    AimbotKeybind = Enum.UserInputType.MouseButton2
+}
+
+getfenv(1).Config = Config
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscriptapi/refs/heads/main/testing.lua", true))()
+</code></pre>
+
         <div class="flare"></div>
       </div>
       <div class="discord-container">
