@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,155 +17,171 @@
     <link rel="icon" href="https://tr.rbxcdn.com/180DAY-f4af8d3a632c3455448c93a0380222fb/256/256/Image/Webp/noFilter" type="image/webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-      body,
+body,
       html {
         margin: 0;
         padding: 0;
         height: 100%;
         overflow: hidden;
+
         background: #000;
         color: #fff;
         font-family: 'Courier New', monospace;
-        perspective: 1000px
+        perspective: 1000px;
       }
 
       @font-face {
         font-family: CyberPunk;
         src: url(https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap)
       }
+
 .loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 0.8s ease-out, visibility 0.8s;
-}
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.8s ease-out, visibility 0.8s;
+      }
 
-.loader-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  width: 80%;
-  max-width: 500px;
-}
+      .loader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        width: 80%;
+        max-width: 500px;
+      }
 
-.loader-logo {
-  animation: logo-pulse 2s infinite;
-}
+      .loader-logo {
+        animation: logo-pulse 2s infinite;
+      }
 
-.loader-logo img {
-  width: 120px;
-  height: 120px;
-  filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
-}
+      .loader-logo img {
+        width: 120px;
+        height: 120px;
+        filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
+      }
 
-.loader-progress-container {
-  width: 100%;
-  text-align: center;
-}
+      .loader-progress-container {
+        width: 100%;
+        text-align: center;
+      }
 
-.loader-progress-bar {
-  height: 4px;
-  width: 100%;
-  background: rgba(0, 255, 255, 0.2);
-  border-radius: 2px;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
-}
+      .loader-progress-bar {
+        height: 4px;
+        width: 100%;
+        background: rgba(0, 255, 255, 0.2);
+        border-radius: 2px;
+        margin-bottom: 10px;
+        position: relative;
+        overflow: hidden;
+      }
 
-.loader-progress-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #0ff, #00ffaa);
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
-  border-radius: 2px;
-  transition: width 0.3s ease-out;
-}
+      .loader-progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #0ff, #00ffaa);
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        border-radius: 2px;
+        transition: width 0.3s ease-out;
+      }
 
-.loader-percentage {
-  color: #0ff;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-}
+      .loader-percentage {
+        color: #0ff;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+      }
 
-.loader-text {
-  color: #0ff;
-  font-family: 'Courier New', monospace;
-  font-size: 16px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  animation: text-flicker 2s infinite;
-  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-}
+      .loader-text {
+        color: #0ff;
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        animation: text-flicker 2s infinite;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+      }
 
-.loader-glitch-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0.2;
-  z-index: -1;
-  background-image: repeating-linear-gradient(
-    0deg,
-    rgba(0, 255, 255, 0.1),
-    rgba(0, 255, 255, 0.1) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  animation: scan-lines 8s linear infinite;
-}
+      .loader-glitch-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0.2;
+        z-index: -1;
+        background-image: repeating-linear-gradient(0deg,
+            rgba(0, 255, 255, 0.1),
+            rgba(0, 255, 255, 0.1) 1px,
+            transparent 1px,
+            transparent 2px);
+        animation: scan-lines 8s linear infinite;
+      }
 
-@keyframes text-flicker {
-  0%, 100% {
-    opacity: 1;
-  }
-  8%, 10% {
-    opacity: 0.4;
-  }
-  9%, 13%, 15% {
-    opacity: 1;
-  }
-  14% {
-    opacity: 0.5;
-  }
-  40%, 42% {
-    opacity: 0.8;
-  }
-  41% {
-    opacity: 1;
-  }
-  70%, 72% {
-    opacity: 0.7;
-  }
-  71% {
-    opacity: 1;
-  }
-}
+      @keyframes text-flicker {
 
-@keyframes scan-lines {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 0 100%;
-  }
-}
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        8%,
+        10% {
+          opacity: 0.4;
+        }
+
+        9%,
+        13%,
+        15% {
+          opacity: 1;
+        }
+
+        14% {
+          opacity: 0.5;
+        }
+
+        40%,
+        42% {
+          opacity: 0.8;
+        }
+
+        41% {
+          opacity: 1;
+        }
+
+        70%,
+        72% {
+          opacity: 0.7;
+        }
+
+        71% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes scan-lines {
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: 0 100%;
+        }
+      }
+
       canvas {
         position: absolute;
         top: 0;
@@ -176,13 +191,43 @@
         z-index: -1
       }
 
-.container {
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 20px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 20px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        overflow-y: auto;
+
+        overflow-x: hidden;
+        min-height: 100vh;
+
+        position: relative;
+        z-index: 10;
+
+      }
+
+      .container::-webkit-scrollbar {
+        width: 8px;
+
+      }
+
+      .container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+
+        border-radius: 4px;
+      }
+
+      .container::-webkit-scrollbar-thumb {
+        background: rgba(0, 255, 255, 0.5);
+
+        border-radius: 4px;
+      }
+
+      .container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 255, 255, 0.8);
+
+      }
 
       .code-container,
       .discord-container {
@@ -290,8 +335,8 @@
           transform: translateZ(-10px) scale(1.05)
         }
       }
-
-      .code-container:hover .glow,
+      
+.code-container:hover .glow,
       .discord-container:hover .glow {
         opacity: .7
       }
@@ -530,6 +575,13 @@
         pointer-events: none
       }
 
+      .digital-rain,
+      .grid,
+      .grid-overlay {
+        pointer-events: none;
+
+      }
+
       .digital-rain {
         position: absolute;
         top: 0;
@@ -686,7 +738,8 @@
         padding: 60px 20px;
         background: transparent;
         position: relative;
-        z-index: 5;
+        z-index: 15;
+
         overflow: hidden;
         margin-top: 30px;
       }
@@ -748,7 +801,6 @@
         transform-style: preserve-3d;
         backdrop-filter: blur(10px);
         animation: float 6s ease-in-out infinite;
-
       }
 
       .feature-card::before {
@@ -849,241 +901,235 @@
         }
       }
 
- /* Base responsive container */
+      @media only screen and (max-width: 480px) {
+        .container {
+          padding: 0 15px;
+          gap: 20px;
+        }
 
+        code,
+        .discord-button {
+          font-size: 1.1em;
+          padding: 16px 20px;
+        }
 
-/* Media queries for different device sizes */
-/* Mobile devices (portrait) */
-@media only screen and (max-width: 480px) {
-  .container {
-    padding: 0 15px;
-    gap: 20px;
-  }
-  
-  code, .discord-button {
-    font-size: 1.1em;
-    padding: 16px 20px;
-  }
-  
-  .loader-logo img {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .section-title h2 {
-    font-size: 1.8em;
-  }
-  
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .feature-card {
-    padding: 20px;
-  }
-  
-  .corner-decoration {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .enter-button {
-    padding: 12px 30px;
-    font-size: 1.2em;
-  }
-  
-  .logo {
-    max-width: 150px;
-  }
-}
+        .loader-logo img {
+          width: 80px;
+          height: 80px;
+        }
 
-/* Mobile devices (landscape) and small tablets */
-@media only screen and (min-width: 481px) and (max-width: 768px) {
-  .container {
-    gap: 25px;
-  }
-  
-  code, .discord-button {
-    font-size: 1.3em;
-    padding: 20px 24px;
-  }
-  
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-  
-  .corner-decoration {
-    width: 100px;
-    height: 100px;
-  }
-}
+        .section-title h2 {
+          font-size: 1.8em;
+        }
 
-/* Tablets and small laptops */
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-  
-  .code-container, .discord-container {
-    transform: scale(0.95);
-  }
-}
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
 
-/* Larger laptops and desktops */
-@media only screen and (min-width: 1025px) and (max-width: 1440px) {
-  .features-grid {
-    max-width: 1000px;
-  }
-}
+        .feature-card {
+          padding: 20px;
+        }
 
-/* Touch-specific adjustments */
-@media (hover: none) {
-  /* Disable hover animations on touch devices */
-  .code-container:hover code,
-  .discord-container:hover .discord-button,
-  .feature-card:hover {
-    transform: none;
-    animation: none;
-  }
-  
-  /* Add active state for touch */
-  .code-container:active code,
-  .discord-container:active .discord-button {
-    transform: scale(0.98);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-  }
-  
-  .feature-card:active {
-    transform: scale(0.98);
-  }
-}
+        .corner-decoration {
+          width: 80px;
+          height: 80px;
+        }
 
-/* Orientation handling */
-@media screen and (orientation: landscape) and (max-height: 500px) {
-  .container {
-    padding-top: 10px;
-    justify-content: flex-start;
-  }
-  
-  .blur-overlay {
-    align-items: flex-start;
-    padding-top: 40px;
-  }
-  
-  .logo {
-    margin-bottom: 20px;
-  }
-  
-  .features-container {
-    padding: 30px 20px;
-  }
-  
-  .section-title {
-    margin-bottom: 25px;
-  }
-  
-  .audio-visualizer {
-    bottom: 20px;
-  }
-}
+        .enter-button {
+          padding: 12px 30px;
+          font-size: 1.2em;
+        }
 
-/* Specific adjustments for features and animations */
-@media (max-width: 768px) {
-  /* Simplify animations on mobile to improve performance */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-  
-  .grid, .grid-overlay {
-    background-size: 30px 30px;
-  }
-  
-  /* Make loader more compact */
-  .loader-content {
-    gap: 20px;
-  }
-  
-  /* Fix positioning for notifications */
-  .notification {
-    width: 80%;
-    max-width: 300px;
-    text-align: center;
-  }
-  
-  /* Better handling of elements that might overflow */
-  .click-me {
-    bottom: 10px;
-    font-size: 12px;
-  }
-}
+        .logo {
+          max-width: 150px;
+        }
+      }
 
-/* Fix for SVG and canvas elements */
-@media (max-width: 1024px) {
-  canvas, .digital-rain {
-    height: 100vh; /* Use viewport height instead of percentage */
-    width: 100vw;  /* Use viewport width instead of percentage */
-    left: 0;
-    top: 0;
-    position: fixed;
-  }
-}
+      @media only screen and (min-width: 481px) and (max-width: 768px) {
+        .container {
+          gap: 25px;
+        }
 
-/* Improved font sizing for better readability */
-@media (max-width: 480px) {
-  body {
-    font-size: 14px;
-  }
-  
-  .loader-text {
-    font-size: 14px;
-  }
-  
-  .loader-percentage {
-    font-size: 12px;
-  }
-}
+        code,
+        .discord-button {
+          font-size: 1.3em;
+          padding: 20px 24px;
+        }
 
-/* Fix for viewport height issues on mobile browsers */
-.container, .blur-overlay {
-  height: 100vh; /* Fallback */
-  height: calc(var(--vh, 1vh) * 100);
-}
+        .features-grid {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
 
-/* Safe area insets for notched phones */
-@supports (padding: max(0px)) {
-  .container, .blur-overlay, .notification {
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
-    padding-top: max(0px, env(safe-area-inset-top));
-    padding-bottom: max(0px, env(safe-area-inset-bottom));
-  }
-}
+        .corner-decoration {
+          width: 100px;
+          height: 100px;
+        }
+      }
 
-/* Add JS to handle viewport height on mobile browsers */
-    </style>
+      @media only screen and (min-width: 769px) and (max-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .code-container,
+        .discord-container {
+          transform: scale(0.95);
+        }
+      }
+
+      @media only screen and (min-width: 1025px) and (max-width: 1440px) {
+        .features-grid {
+          max-width: 1000px;
+        }
+      }
+
+      @media (hover: none) {
+
+        .code-container:hover code,
+        .discord-container:hover .discord-button,
+        .feature-card:hover {
+          transform: none;
+          animation: none;
+        }
+
+        .code-container:active code,
+        .discord-container:active .discord-button {
+          transform: scale(0.98);
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .feature-card:active {
+          transform: scale(0.98);
+        }
+      }
+
+      @media screen and (orientation: landscape) and (max-height: 500px) {
+        .container {
+          padding-top: 10px;
+          justify-content: flex-start;
+        }
+
+        .blur-overlay {
+          align-items: flex-start;
+          padding-top: 40px;
+        }
+
+        .logo {
+          margin-bottom: 20px;
+        }
+
+        .features-container {
+          padding: 30px 20px;
+        }
+
+        .section-title {
+          margin-bottom: 25px;
+        }
+
+        .audio-visualizer {
+          bottom: 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+
+        @keyframes float {
+
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        .grid,
+        .grid-overlay {
+          background-size: 30px 30px;
+        }
+
+        .loader-content {
+          gap: 20px;
+        }
+
+        .notification {
+          width: 80%;
+          max-width: 300px;
+          text-align: center;
+        }
+
+        .click-me {
+          bottom: 10px;
+          font-size: 12px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+
+        canvas,
+        .digital-rain {
+          height: 100vh;
+
+          width: 100vw;
+
+          left: 0;
+          top: 0;
+          position: fixed;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          font-size: 14px;
+        }
+
+        .loader-text {
+          font-size: 14px;
+        }
+
+        .loader-percentage {
+          font-size: 12px;
+        }
+      }
+
+      .container,
+      .blur-overlay {
+        height: 100vh;
+
+        height: calc(var(--vh, 1vh) * 100);
+      }
+
+      @supports (padding: max(0px)) {
+
+        .container,
+        .blur-overlay,
+        .notification {
+          padding-left: max(20px, env(safe-area-inset-left));
+          padding-right: max(20px, env(safe-area-inset-right));
+          padding-top: max(0px, env(safe-area-inset-top));
+          padding-bottom: max(0px, env(safe-area-inset-bottom));
+        }
+      }
+</style>
   </head>
   <body>
-
-<div class="loader-container">
-  <div class="loader-content">
-    <div class="loader-logo">
-      <img src="https://tr.rbxcdn.com/180DAY-f4af8d3a632c3455448c93a0380222fb/256/256/Image/Webp/noFilter" alt="Rivals Logo">
-    </div>
-    <div class="loader-progress-container">
-      <div class="loader-progress-bar">
-        <div class="loader-progress-fill"></div>
+    <div class="loader-container">
+      <div class="loader-content">
+        <div class="loader-logo">
+          <img src="https://tr.rbxcdn.com/180DAY-f4af8d3a632c3455448c93a0380222fb/256/256/Image/Webp/noFilter" alt="Rivals Logo">
+        </div>
+        <div class="loader-progress-container">
+          <div class="loader-progress-bar">
+            <div class="loader-progress-fill"></div>
+          </div>
+          <div class="loader-percentage">0%</div>
+        </div>
+        <div class="loader-text">INITIALIZING SYSTEM...</div>
+        <div class="loader-glitch-lines"></div>
       </div>
-      <div class="loader-percentage">0%</div>
     </div>
-    <div class="loader-text">INITIALIZING SYSTEM...</div>
-    <div class="loader-glitch-lines"></div>
-  </div>
-</div>
     <div class="blur-overlay">
       <img class="logo" src="https://tr.rbxcdn.com/180DAY-f4af8d3a632c3455448c93a0380222fb/256/256/Image/Webp/noFilter">
       <button class="enter-button">Enter</button>
@@ -1099,7 +1145,9 @@
     <div class="container">
       <div class="code-container">
         <div class="glow"></div>
-<pre style="white-space: pre-wrap;"><code>
+        <pre style="white-space: pre-wrap;">
+																					<code>
+
 -- Configuration Settings
 local Config = {
     
@@ -1138,15 +1186,17 @@ local Config = {
     AimbotKeybind = Enum.UserInputType.MouseButton2  
 }
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscriptapi/refs/heads/main/testing.lua", true))()
+getfenv(1).Config = Config
 
-</code></pre>
+loadstring(game:HttpGet("https://pastebin.com/raw/mGCxuJSf",true))()
 
+</code>
+</pre>
         <div class="flare"></div>
       </div>
       <div class="discord-container">
         <div class="glow"></div>
-        <a href="https://discord.gg/https://discord.gg/uGxSYkyp66" class="discord-button" target="_blank">
+        <a href="https://discord.gg/uGxSYkyp66" class="discord-button" target="_blank">
           <i class="fab fa-discord discord-icon"></i> Join our Discord </a>
         <div class="flare"></div>
       </div>
@@ -1210,96 +1260,75 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscri
       <div class="audio-visualizer" id="visualizer"></div>
       <div class="notification" id="notification">Script copied to clipboard!</div>
       <audio id="background-audio" src="https://rivals-script.vercel.app/audios/Devon%20Hendryx%20-%20Sakura.mp3" loop autoplay></audio>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const loaderContainer = document.querySelector('.loader-container');
-  const progressFill = document.querySelector('.loader-progress-fill');
-  const percentageText = document.querySelector('.loader-percentage');
-  const loaderText = document.querySelector('.loader-text');
-  
-  // Array of loading messages to display
-  const loadingMessages = [
-    'INITIALIZING SYSTEM...',
-    'CONFIGURING INTERFACE...',
-    'LOADING ASSETS...',
-    'CALIBRATING AIMBOT PARAMETERS...',
-    'ESTABLISHING SECURE CONNECTION...',
-    'BYPASSING DETECTION...',
-    'PREPARING SCRIPT...'
-  ];
-  
-  // Hide existing blur overlay initially
-  const existingBlurOverlay = document.querySelector('.blur-overlay');
-  if (existingBlurOverlay) {
-    existingBlurOverlay.style.display = 'none';
-  }
-  
-  let progress = 0;
-  let messageIndex = 0;
-  let loadingInterval;
-  
-  // Start the loading animation
-  function startLoading() {
-    // Fake progress increment
-    loadingInterval = setInterval(() => {
-      // Randomize progress increment for more realistic loading feel
-      const increment = Math.random() * 3 + 1;
-      progress = Math.min(progress + increment, 100);
-      
-      // Update progress bar and text
-      progressFill.style.width = `${progress}%`;
-      percentageText.textContent = `${Math.floor(progress)}%`;
-      
-      // Change loading message at certain progress points
-      if (progress > messageIndex * (100 / loadingMessages.length) && messageIndex < loadingMessages.length - 1) {
-        messageIndex++;
-        // Add glitch effect when changing message
-        loaderText.classList.add('glitch');
-        setTimeout(() => {
-          loaderText.textContent = loadingMessages[messageIndex];
-          loaderText.classList.remove('glitch');
-        }, 200);
-      }
-      
-      // When loading is complete
-      if (progress >= 100) {
-        clearInterval(loadingInterval);
-        completeLoading();
-      }
-    }, 100);
-  }
-  
-  // Finish loading and show the main content
-  function completeLoading() {
-    setTimeout(() => {
-      // Final message
-      loaderText.textContent = 'ACCESS GRANTED';
-      
-      // Add glitch effect before hiding
-      loaderContainer.classList.add('glitch');
-      
+      <script>
+document.addEventListener('DOMContentLoaded', function () {
+   const loaderContainer = document.querySelector('.loader-container');
+   const progressFill = document.querySelector('.loader-progress-fill');
+   const percentageText = document.querySelector('.loader-percentage');
+   const loaderText = document.querySelector('.loader-text');
+
+   const loadingMessages = ['INITIALIZING SYSTEM...', 'CONFIGURING INTERFACE...', 'LOADING ASSETS...', 'CALIBRATING AIMBOT PARAMETERS...', 'ESTABLISHING SECURE CONNECTION...', 'BYPASSING DETECTION...', 'PREPARING SCRIPT...'];
+
+   const existingBlurOverlay = document.querySelector('.blur-overlay');
+   if (existingBlurOverlay) {
+      existingBlurOverlay.style.display = 'none';
+   }
+   let progress = 0;
+   let messageIndex = 0;
+   let loadingInterval;
+
+   function startLoading() {
+
+      loadingInterval = setInterval(() => {
+
+         const increment = Math.random() * 3 + 1;
+         progress = Math.min(progress + increment, 100);
+
+         progressFill.style.width = `${progress}%`;
+         percentageText.textContent = `${Math.floor(progress)}%`;
+
+         if (progress > messageIndex * (100 / loadingMessages.length) && messageIndex < loadingMessages.length - 1) {
+            messageIndex++;
+
+            loaderText.classList.add('glitch');
+            setTimeout(() => {
+               loaderText.textContent = loadingMessages[messageIndex];
+               loaderText.classList.remove('glitch');
+            }, 200);
+         }
+
+         if (progress >= 100) {
+            clearInterval(loadingInterval);
+            completeLoading();
+         }
+      }, 100);
+   }
+
+   function completeLoading() {
       setTimeout(() => {
-        // Hide loader
-        loaderContainer.style.opacity = '0';
-        loaderContainer.style.visibility = 'hidden';
-        
-        // Show original blur overlay
-        if (existingBlurOverlay) {
-          existingBlurOverlay.style.display = '';
-        }
-        
-        // Remove loader from DOM after transition
-        setTimeout(() => {
-          loaderContainer.remove();
-        }, 800);
-      }, 800);
-    }, 500);
-  }
-  
-  // Add glitch effect to the loader
-  function setupGlitchEffects() {
-    const style = document.createElement('style');
-    style.textContent = `
+
+         loaderText.textContent = 'ACCESS GRANTED';
+
+         loaderContainer.classList.add('glitch');
+         setTimeout(() => {
+
+            loaderContainer.style.opacity = '0';
+            loaderContainer.style.visibility = 'hidden';
+
+            if (existingBlurOverlay) {
+               existingBlurOverlay.style.display = '';
+            }
+
+            setTimeout(() => {
+               loaderContainer.remove();
+            }, 800);
+         }, 800);
+      }, 500);
+   }
+
+   function setupGlitchEffects() {
+      const style = document.createElement('style');
+      style.textContent = `
       @keyframes glitch {
         0% {
           transform: translate(0)
@@ -1320,33 +1349,31 @@ document.addEventListener('DOMContentLoaded', function() {
           transform: translate(0)
         }
       }
-      
+
       .glitch {
         animation: glitch 0.3s infinite;
       }
     `;
-    document.head.appendChild(style);
-  }
-  
-  // Create digital noise effect in the background
-  function createDigitalNoiseEffect() {
-    const noiseOverlay = document.createElement('div');
-    noiseOverlay.style.position = 'fixed';
-    noiseOverlay.style.top = '0';
-    noiseOverlay.style.left = '0';
-    noiseOverlay.style.width = '100%';
-    noiseOverlay.style.height = '100%';
-    noiseOverlay.style.pointerEvents = 'none';
-    noiseOverlay.style.zIndex = '9998';
-    noiseOverlay.style.opacity = '0.1';
-    noiseOverlay.style.background = 'url("data:image/png;base64,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")';
-    document.body.appendChild(noiseOverlay);
-    
-    // Animation for noise
-    setTimeout(() => {
-      noiseOverlay.style.animation = 'noise-animation 0.2s infinite';
-      const noiseStyle = document.createElement('style');
-      noiseStyle.textContent = `
+      document.head.appendChild(style);
+   }
+
+   function createDigitalNoiseEffect() {
+      const noiseOverlay = document.createElement('div');
+      noiseOverlay.style.position = 'fixed';
+      noiseOverlay.style.top = '0';
+      noiseOverlay.style.left = '0';
+      noiseOverlay.style.width = '100%';
+      noiseOverlay.style.height = '100%';
+      noiseOverlay.style.pointerEvents = 'none';
+      noiseOverlay.style.zIndex = '9998';
+      noiseOverlay.style.opacity = '0.1';
+      noiseOverlay.style.background = 'url("data:image/png;base64,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")';
+      document.body.appendChild(noiseOverlay);
+
+      setTimeout(() => {
+         noiseOverlay.style.animation = 'noise-animation 0.2s infinite';
+         const noiseStyle = document.createElement('style');
+         noiseStyle.textContent = `
         @keyframes noise-animation {
           0% { opacity: 0.05; }
           10% { opacity: 0.1; }
@@ -1361,229 +1388,226 @@ document.addEventListener('DOMContentLoaded', function() {
           100% { opacity: 0.05; }
         }
       `;
-      document.head.appendChild(noiseStyle);
-    }, 100);
-    
-    // Remove noise when loader is complete
-    setTimeout(() => {
-      noiseOverlay.style.opacity = '0';
+         document.head.appendChild(noiseStyle);
+      }, 100);
+
       setTimeout(() => {
-        noiseOverlay.remove();
-      }, 1000);
-    }, 4000);
-  }
-  
-  // Initialize all components
-  setupGlitchEffects();
-  createDigitalNoiseEffect();
-  
-  // Begin loading sequence
-  setTimeout(() => {
-    startLoading();
-  }, 500);
+         noiseOverlay.style.opacity = '0';
+         setTimeout(() => {
+            noiseOverlay.remove();
+         }, 1000);
+      }, 4000);
+   }
+
+   setupGlitchEffects();
+   createDigitalNoiseEffect();
+
+   setTimeout(() => {
+      startLoading();
+   }, 500);
 });
-      const enterButton = document.querySelector('.enter-button');
-      const blurOverlay = document.querySelector('.blur-overlay');
-      const audio = document.getElementById('background-audio');
-      const notification = document.getElementById('notification');
-      const visualizer = document.getElementById('visualizer');
-      const barsCount = 20;
-      for (let i = 0; i < barsCount; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'audio-bar';
-        bar.style.height = '2px';
-        visualizer.appendChild(bar);
-      }
-      const audioBars = document.querySelectorAll('.audio-bar');
+const enterButton = document.querySelector('.enter-button');
+const blurOverlay = document.querySelector('.blur-overlay');
+const audio = document.getElementById('background-audio');
+const notification = document.getElementById('notification');
+const visualizer = document.getElementById('visualizer');
+const barsCount = 20;
+for (let i = 0; i < barsCount; i++) {
+   const bar = document.createElement('div');
+   bar.className = 'audio-bar';
+   bar.style.height = '2px';
+   visualizer.appendChild(bar);
+}
+const audioBars = document.querySelectorAll('.audio-bar');
 enterButton.addEventListener('click', () => {
-  blurOverlay.style.transform = 'scale(1.5)';
-  blurOverlay.style.opacity = '0';
-  setTimeout(() => {
-    blurOverlay.classList.add('hidden');
-  }, 1000);
-  audio.volume = 0.3;
-  audio.play();
-  startVisualizer();
-  initDigitalRain();
-  initParticles();
+   blurOverlay.style.transform = 'scale(1.5)';
+   blurOverlay.style.opacity = '0';
+   setTimeout(() => {
+      blurOverlay.classList.add('hidden');
+   }, 1000);
+   audio.volume = 0.3;
+   audio.play();
+   startVisualizer();
+   initDigitalRain();
+   initParticles();
 });
 
-      function initDigitalRain() {
-        const canvas = document.createElement('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        document.getElementById('digital-rain').appendChild(canvas);
-        const ctx = canvas.getContext('2d');
-        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?';
-        const columns = Math.floor(canvas.width / 20);
-        const drops = [];
-        for (let i = 0; i < columns; i++) {
-          drops[i] = Math.floor(Math.random() * -canvas.height);
-        }
+function initDigitalRain() {
+   const canvas = document.createElement('canvas');
+   canvas.width = window.innerWidth;
+   canvas.height = window.innerHeight;
+   document.getElementById('digital-rain').appendChild(canvas);
+   const ctx = canvas.getContext('2d');
+   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?';
+   const columns = Math.floor(canvas.width / 20);
+   const drops = [];
+   for (let i = 0; i < columns; i++) {
+      drops[i] = Math.floor(Math.random() * -canvas.height);
+   }
 
-        function draw() {
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.fillStyle = '#0ff';
-          ctx.font = '15px monospace';
-          for (let i = 0; i < drops.length; i++) {
-            const text = chars[Math.floor(Math.random() * chars.length)];
-            ctx.fillText(text, i * 20, drops[i]);
-            drops[i] += 20;
-            if (drops[i] > canvas.height && Math.random() > 0.975) {
-              drops[i] = Math.floor(Math.random() * -100);
-            }
-          }
-        }
-        setInterval(draw, 50);
+   function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0ff';
+      ctx.font = '15px monospace';
+      for (let i = 0; i < drops.length; i++) {
+         const text = chars[Math.floor(Math.random() * chars.length)];
+         ctx.fillText(text, i * 20, drops[i]);
+         drops[i] += 20;
+         if (drops[i] > canvas.height && Math.random() > 0.975) {
+            drops[i] = Math.floor(Math.random() * -100);
+         }
       }
+   }
+   setInterval(draw, 50);
+}
 
-      function startVisualizer() {
-        const audioContext = new(window.AudioContext || window.webkitAudioContext)();
-        const audioElement = document.getElementById('background-audio');
-        const audioSource = audioContext.createMediaElementSource(audioElement);
-        const analyser = audioContext.createAnalyser();
-        audioSource.connect(analyser);
-        analyser.connect(audioContext.destination);
-        analyser.fftSize = 256;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
+function startVisualizer() {
+   const audioContext = new(window.AudioContext || window.webkitAudioContext)();
+   const audioElement = document.getElementById('background-audio');
+   const audioSource = audioContext.createMediaElementSource(audioElement);
+   const analyser = audioContext.createAnalyser();
+   audioSource.connect(analyser);
+   analyser.connect(audioContext.destination);
+   analyser.fftSize = 256;
+   const bufferLength = analyser.frequencyBinCount;
+   const dataArray = new Uint8Array(bufferLength);
 
-        function updateVisualizer() {
-          requestAnimationFrame(updateVisualizer);
-          analyser.getByteFrequencyData(dataArray);
-          for (let i = 0; i < audioBars.length; i++) {
-            const index = Math.floor(i * (bufferLength / audioBars.length));
-            const value = dataArray[index];
-            const height = Math.max(2, value / 255 * 40);
-            audioBars[i].style.height = `${height}px`;
-          }
-        }
-        updateVisualizer();
+   function updateVisualizer() {
+      requestAnimationFrame(updateVisualizer);
+      analyser.getByteFrequencyData(dataArray);
+      for (let i = 0; i < audioBars.length; i++) {
+         const index = Math.floor(i * (bufferLength / audioBars.length));
+         const value = dataArray[index];
+         const height = Math.max(2, value / 255 * 40);
+         audioBars[i].style.height = `${height}px`;
       }
+   }
+   updateVisualizer();
+}
 
-      function initParticles() {
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        class Particle {
-          constructor() {
+function initParticles() {
+   const canvas = document.getElementById('particles');
+   const ctx = canvas.getContext('2d');
+   canvas.width = window.innerWidth;
+   canvas.height = window.innerHeight;
+   class Particle {
+      constructor() {
+         this.reset();
+      }
+      reset() {
+         this.x = Math.random() * canvas.width;
+         this.y = Math.random() * canvas.height;
+         this.size = Math.random() * 2 + 1;
+         this.speedX = (Math.random() - 0.5) * 1;
+         this.speedY = (Math.random() - 0.5) * 1;
+         this.color = `rgba(0, ${Math.random() * 200 + 55}, ${Math.random() * 200 + 55}, ${Math.random() * 0.5 + 0.3})`;
+      }
+      update() {
+         this.x += this.speedX;
+         this.y += this.speedY;
+         if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
             this.reset();
-          }
-          reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 1;
-            this.speedX = (Math.random() - 0.5) * 1;
-            this.speedY = (Math.random() - 0.5) * 1;
-            this.color = `rgba(0, ${Math.random() * 200 + 55}, ${Math.random() * 200 + 55}, ${Math.random() * 0.5 + 0.3})`;
-          }
-          update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-              this.reset();
-            }
-          }
-          draw() {
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-        const particles = [];
-        const particleCount = 100;
-        for (let i = 0; i < particleCount; i++) {
-          particles.push(new Particle());
-        }
-
-        function animate() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          for (const particle of particles) {
-            particle.update();
-            particle.draw();
-          }
-          requestAnimationFrame(animate);
-        }
-        animate();
-        window.addEventListener('resize', () => {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-        });
+         }
       }
-      const codeContainer = document.querySelector('.code-container');
-      const code = document.querySelector('code');
-      const flare = document.querySelector('.flare');
-      codeContainer.addEventListener('mousemove', (e) => {
-        const rect = codeContainer.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        codeContainer.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        flare.style.left = `${x - 75}px`;
-        flare.style.top = `${y - 75}px`;
-        flare.style.opacity = '0.7';
-      });
-      codeContainer.addEventListener('mouseleave', () => {
-        codeContainer.style.transform = 'rotateX(0) rotateY(0)';
-        flare.style.opacity = '0';
-      });
-      code.addEventListener('click', () => {
-        const textToCopy = code.textContent;
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          notification.classList.add('show');
-          setTimeout(() => {
-            notification.classList.remove('show');
-          }, 2000);
-        });
-      });
+      draw() {
+         ctx.fillStyle = this.color;
+         ctx.beginPath();
+         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+         ctx.fill();
+      }
+   }
+   const particles = [];
+   const particleCount = 100;
+   for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+   }
 
-      function createParticlesOnHover() {
-        const particleContainer = document.createElement('div');
-        particleContainer.style.position = 'absolute';
-        particleContainer.style.top = '0';
-        particleContainer.style.left = '0';
-        particleContainer.style.width = '100%';
-        particleContainer.style.height = '100%';
-        particleContainer.style.pointerEvents = 'none';
-        particleContainer.style.zIndex = '10';
-        document.body.appendChild(particleContainer);
-        codeContainer.addEventListener('mouseover', () => {
-          const interval = setInterval(() => {
-            if (!codeContainer.matches(':hover')) {
-              clearInterval(interval);
-              return;
-            }
-            const particle = document.createElement('div');
-            particle.style.position = 'absolute';
-            particle.style.width = '4px';
-            particle.style.height = '4px';
-            particle.style.backgroundColor = '#0ff';
-            particle.style.borderRadius = '50%';
-            particle.style.pointerEvents = 'none';
-            const rect = codeContainer.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const angle = Math.random() * Math.PI * 2;
-            const distance = rect.width / 2 + 20;
-            const x = centerX + Math.cos(angle) * distance;
-            const y = centerY + Math.sin(angle) * distance;
-            particle.style.left = `${x}px`;
-            particle.style.top = `${y}px`;
-            particle.style.animation = 'particle-fade 1.5s forwards';
-            particleContainer.appendChild(particle);
-            setTimeout(() => {
-              particleContainer.removeChild(particle);
-            }, 1500);
-          }, 100);
-        });
-        const style = document.createElement('style');
-        style.textContent = `
+   function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const particle of particles) {
+         particle.update();
+         particle.draw();
+      }
+      requestAnimationFrame(animate);
+   }
+   animate();
+   window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+   });
+}
+const codeContainer = document.querySelector('.code-container');
+const code = document.querySelector('code');
+const flare = document.querySelector('.flare');
+codeContainer.addEventListener('mousemove', (e) => {
+   const rect = codeContainer.getBoundingClientRect();
+   const x = e.clientX - rect.left;
+   const y = e.clientY - rect.top;
+   const centerX = rect.width / 2;
+   const centerY = rect.height / 2;
+   const rotateX = (y - centerY) / 10;
+   const rotateY = (centerX - x) / 10;
+   codeContainer.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+   flare.style.left = `${x - 75}px`;
+   flare.style.top = `${y - 75}px`;
+   flare.style.opacity = '0.7';
+});
+codeContainer.addEventListener('mouseleave', () => {
+   codeContainer.style.transform = 'rotateX(0) rotateY(0)';
+   flare.style.opacity = '0';
+});
+code.addEventListener('click', () => {
+   const textToCopy = code.textContent;
+   navigator.clipboard.writeText(textToCopy).then(() => {
+      notification.classList.add('show');
+      setTimeout(() => {
+         notification.classList.remove('show');
+      }, 2000);
+   });
+});
+
+function createParticlesOnHover() {
+   const particleContainer = document.createElement('div');
+   particleContainer.style.position = 'absolute';
+   particleContainer.style.top = '0';
+   particleContainer.style.left = '0';
+   particleContainer.style.width = '100%';
+   particleContainer.style.height = '100%';
+   particleContainer.style.pointerEvents = 'none';
+   particleContainer.style.zIndex = '10';
+   document.body.appendChild(particleContainer);
+   codeContainer.addEventListener('mouseover', () => {
+      const interval = setInterval(() => {
+         if (!codeContainer.matches(':hover')) {
+            clearInterval(interval);
+            return;
+         }
+         const particle = document.createElement('div');
+         particle.style.position = 'absolute';
+         particle.style.width = '4px';
+         particle.style.height = '4px';
+         particle.style.backgroundColor = '#0ff';
+         particle.style.borderRadius = '50%';
+         particle.style.pointerEvents = 'none';
+         const rect = codeContainer.getBoundingClientRect();
+         const centerX = rect.left + rect.width / 2;
+         const centerY = rect.top + rect.height / 2;
+         const angle = Math.random() * Math.PI * 2;
+         const distance = rect.width / 2 + 20;
+         const x = centerX + Math.cos(angle) * distance;
+         const y = centerY + Math.sin(angle) * distance;
+         particle.style.left = `${x}px`;
+         particle.style.top = `${y}px`;
+         particle.style.animation = 'particle-fade 1.5s forwards';
+         particleContainer.appendChild(particle);
+         setTimeout(() => {
+            particleContainer.removeChild(particle);
+         }, 1500);
+      }, 100);
+   });
+   const style = document.createElement('style');
+   style.textContent = `
                 @keyframes particle-fade {
                     0% { 
                         transform: scale(0); 
@@ -1603,114 +1627,110 @@ enterButton.addEventListener('click', () => {
                     }
                 }
             `;
-        document.head.appendChild(style);
-      }
+   document.head.appendChild(style);
+}
 
-      function createCustomCursor() {
-        const cursor = document.createElement('div');
-        cursor.className = 'custom-cursor';
-        cursor.style.position = 'fixed';
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        cursor.style.borderRadius = '50%';
-        cursor.style.backgroundColor = 'transparent';
-        cursor.style.border = '2px solid rgba(0, 255, 255, 0.5)';
-        cursor.style.transform = 'translate(-50%, -50%)';
-        cursor.style.pointerEvents = 'none';
-        cursor.style.zIndex = '9999';
-        cursor.style.transition = 'width 0.2s, height 0.2s, background-color 0.2s';
-        document.body.appendChild(cursor);
-        const trail = document.createElement('div');
-        trail.className = 'cursor-trail';
-        trail.style.position = 'fixed';
-        trail.style.width = '10px';
-        trail.style.height = '10px';
-        trail.style.borderRadius = '50%';
-        trail.style.backgroundColor = 'rgba(0, 255, 255, 0.2)';
-        trail.style.transform = 'translate(-50%, -50%)';
-        trail.style.pointerEvents = 'none';
-        trail.style.zIndex = '9998';
-        trail.style.transition = 'transform 0.2s, opacity 0.2s';
-        document.body.appendChild(trail);
-        document.addEventListener('mousemove', (e) => {
-          cursor.style.left = `${e.clientX}px`;
-          cursor.style.top = `${e.clientY}px`;
-          setTimeout(() => {
-            trail.style.left = `${e.clientX}px`;
-            trail.style.top = `${e.clientY}px`;
-          }, 100);
-        });
-        document.querySelectorAll('button, code, .enter-button').forEach(el => {
-          el.addEventListener('mouseenter', () => {
-            cursor.style.width = '30px';
-            cursor.style.height = '30px';
-            cursor.style.backgroundColor = 'rgba(0, 255, 255, 0.1)';
-            cursor.style.border = '2px solid rgba(0, 255, 255, 0.8)';
-          });
-          el.addEventListener('mouseleave', () => {
-            cursor.style.width = '20px';
-            cursor.style.height = '20px';
-            cursor.style.backgroundColor = 'transparent';
-            cursor.style.border = '2px solid rgba(0, 255, 255, 0.5)';
-          });
-        });
-      }
-      document.addEventListener('DOMContentLoaded', () => {
-        createParticlesOnHover();
-        createCustomCursor();
+function createCustomCursor() {
+   const cursor = document.createElement('div');
+   cursor.className = 'custom-cursor';
+   cursor.style.position = 'fixed';
+   cursor.style.width = '20px';
+   cursor.style.height = '20px';
+   cursor.style.borderRadius = '50%';
+   cursor.style.backgroundColor = 'transparent';
+   cursor.style.border = '2px solid rgba(0, 255, 255, 0.5)';
+   cursor.style.transform = 'translate(-50%, -50%)';
+   cursor.style.pointerEvents = 'none';
+   cursor.style.zIndex = '9999';
+   cursor.style.transition = 'width 0.2s, height 0.2s, background-color 0.2s';
+   document.body.appendChild(cursor);
+   const trail = document.createElement('div');
+   trail.className = 'cursor-trail';
+   trail.style.position = 'fixed';
+   trail.style.width = '10px';
+   trail.style.height = '10px';
+   trail.style.borderRadius = '50%';
+   trail.style.backgroundColor = 'rgba(0, 255, 255, 0.2)';
+   trail.style.transform = 'translate(-50%, -50%)';
+   trail.style.pointerEvents = 'none';
+   trail.style.zIndex = '9998';
+   trail.style.transition = 'transform 0.2s, opacity 0.2s';
+   document.body.appendChild(trail);
+   document.addEventListener('mousemove', (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+      setTimeout(() => {
+         trail.style.left = `${e.clientX}px`;
+         trail.style.top = `${e.clientY}px`;
+      }, 100);
+   });
+   document.querySelectorAll('button, code, .enter-button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+         cursor.style.width = '30px';
+         cursor.style.height = '30px';
+         cursor.style.backgroundColor = 'rgba(0, 255, 255, 0.1)';
+         cursor.style.border = '2px solid rgba(0, 255, 255, 0.8)';
       });
-      document.addEventListener('DOMContentLoaded', () => {
-        const discordButton = document.querySelector('.discord-button');
-        discordButton.addEventListener('click', () => {
-          window.open('https://discord.gg/uGxSYkyp66', '_blank');
-          notification.textContent = "Opening Discord invite!";
-          notification.classList.add('show');
-          notification.classList.add('glitch');
-          setTimeout(() => {
-            notification.classList.remove('show');
-            notification.classList.remove('glitch');
-            setTimeout(() => {
-              notification.textContent = "Script copied to clipboard!";
-            }, 500);
-          }, 2000);
-        });
+      el.addEventListener('mouseleave', () => {
+         cursor.style.width = '20px';
+         cursor.style.height = '20px';
+         cursor.style.backgroundColor = 'transparent';
+         cursor.style.border = '2px solid rgba(0, 255, 255, 0.5)';
       });
+   });
+}
+document.addEventListener('DOMContentLoaded', () => {
+   createParticlesOnHover();
+   createCustomCursor();
+});
+document.addEventListener('DOMContentLoaded', () => {
+   const discordButton = document.querySelector('.discord-button');
+   discordButton.addEventListener('click', () => {
+      window.open('https://discord.gg/uGxSYkyp66', '_blank');
+      notification.textContent = "Opening Discord invite!";
+      notification.classList.add('show');
+      notification.classList.add('glitch');
+      setTimeout(() => {
+         notification.classList.remove('show');
+         notification.classList.remove('glitch');
+         setTimeout(() => {
+            notification.textContent = "Script copied to clipboard!";
+         }, 500);
+      }, 2000);
+   });
+});
 
-      // Add this script to the end of your HTML body
-document.addEventListener('DOMContentLoaded', function() {
-  // First we get the viewport height and multiply it by 1% to get a value for a vh unit
-  let vh = window.innerHeight * 0.01;
-  // Then we set the value in the --vh custom property to the root of the document
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-  
-  // We listen to the resize event
-  window.addEventListener('resize', () => {
-    // We execute the same script as before
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  });
-  
-  // Handle orientation change specifically
-  window.addEventListener('orientationchange', () => {
-    // Small timeout to ensure the browser has completed the orientation change
-    setTimeout(() => {
+document.addEventListener('DOMContentLoaded', function () {
+
+   let vh = window.innerHeight * 0.01;
+
+   document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+   window.addEventListener('resize', () => {
+
       let vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }, 100);
-  });
-  
-  // Add meta viewport tag if not present (place this in your head if not already there)
-  if (!document.querySelector('meta[name="viewport"]')) {
-    const meta = document.createElement('meta');
-    meta.name = 'viewport';
-    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
-    document.getElementsByTagName('head')[0].appendChild(meta);
-  }
+   });
+
+   window.addEventListener('orientationchange', () => {
+
+      setTimeout(() => {
+         let vh = window.innerHeight * 0.01;
+         document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }, 100);
+   });
+
+   if (!document.querySelector('meta[name="viewport"]')) {
+      const meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+      document.getElementsByTagName('head')[0].appendChild(meta);
+   }
 });
-    </script>
-  <script>
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1348363412702367877/wjXCjlCSrCimOiuEAijJeR6eIdVc9JnTjmo8XaftEQ1igyNcoOWwRxSFHPqGstWDW0IC";
-    window.WEBHOOK_URL = WEBHOOK_URL;
-    // dont raid the webhook 😭
-  </script>
-  <script src="/user-activity-tracker.js"></script>
+      </script>
+      <script>
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1348363412702367877/wjXCjlCSrCimOiuEAijJeR6eIdVc9JnTjmo8XaftEQ1igyNcoOWwRxSFHPqGstWDW0IC";
+        window.WEBHOOK_URL = WEBHOOK_URL;
+        // dont raid the webhook 😭
+      </script>
+      <script src="/user-activity-tracker.js"></script>
