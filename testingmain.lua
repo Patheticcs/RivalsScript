@@ -6,25 +6,21 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
-local Keybind = UserConfig.AimbotKeybind
+local Keybind = Enum.UserInputType.MouseButton2
 
-local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
+local SENSITIVITY_MULTIPLIER = 0.5
 
-local MOVE_SPEED = UserConfig.WalkSpeedValue
+local AimbotMode = "Hold"
 
-local CurrentTheme = UserConfig.Theme
+local ESPEnabled = false
 
-local AimbotMode = UserConfig.AimbotMode
+local AutoShootEnabled = false
 
-local ESPEnabled = UserConfig.ESPEnabled
+local InfiniteJumpEnabled = false
 
-local AutoShootEnabled = UserConfig.AutoShootEnabled
+local NoClipEnabled = false
 
-local InfiniteJumpEnabled = UserConfig.InfiniteJumpEnabled
-
-local NoClipEnabled = UserConfig.NoClipEnabled
-
-local WalkSpeedEnabled = UserConfig.WalkSpeedEnabled
+local WalkSpeedEnabled = false
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
@@ -78,6 +74,9 @@ local ThemeColors = {
     }
 }
 
+local CurrentTheme = "Dark"
+
+local MOVE_SPEED = 50
 local MAX_FORCE = 10000
 local DAMPENING = 0.9
 local moveKeys = {
@@ -932,22 +931,26 @@ local function GetClosestPlayerToCursor()
 
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character and not isTeammate(player) and not isDead(player) then
-            local head = player.Character:FindFirstChild("Head")
-            if head then
-                local distance = (localRootPart.Position - head.Position).Magnitude
+            -- Check if the player has a "TeamateLabel"
+            local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart and not humanoidRootPart:FindFirstChild("TeamateLabel") then
+                local head = player.Character:FindFirstChild("Head")
+                if head then
+                    local distance = (localRootPart.Position - head.Position).Magnitude
 
-                if distance <= MAX_AIMBOT_DISTANCE then
-                    local screenPosition, onScreen = Camera:WorldToViewportPoint(head.Position)
-                    if onScreen then
-                        local cursorDistance = (Vector2.new(screenPosition.X, screenPosition.Y) - mouseLocation).Magnitude
-                        if cursorDistance < shortestDistance then
-                            shortestDistance = cursorDistance
-                            closestPlayer = head
-                        end
-                    else
-                        if distance < shortestDistance then
-                            shortestDistance = distance
-                            closestPlayer = head
+                    if distance <= MAX_AIMBOT_DISTANCE then
+                        local screenPosition, onScreen = Camera:WorldToViewportPoint(head.Position)
+                        if onScreen then
+                            local cursorDistance = (Vector2.new(screenPosition.X, screenPosition.Y) - mouseLocation).Magnitude
+                            if cursorDistance < shortestDistance then
+                                shortestDistance = cursorDistance
+                                closestPlayer = head
+                            end
+                        else
+                            if distance < shortestDistance then
+                                shortestDistance = distance
+                                closestPlayer = head
+                            end
                         end
                     end
                 end
@@ -1458,39 +1461,6 @@ DiscordButton.MouseButton1Click:Connect(function()
     wait(2)
     DiscordButton.Text = "Discord"
 end)
-setESPState(UserConfig.ESPEnabled)
-ESPStatus.Text = "ESP: " .. (UserConfig.ESPEnabled and "On" or "Off")
-ESPStatus.TextColor3 = UserConfig.ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-ESPIcon.TextColor3 = UserConfig.ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-
--- Update Aimbot toggle
-setAimbotState(UserConfig.AimbotEnabled)
-AimbotStatus.Text = "Aimbot: " .. (UserConfig.AimbotEnabled and "On" or "Off")
-AimbotStatus.TextColor3 = UserConfig.AimbotEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-AimbotIcon.TextColor3 = UserConfig.AimbotEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-
--- Update WalkSpeed slider
-WalkSpeedSlider:updateSlider(UserConfig.WalkSpeedValue)
-WalkSpeedStatus.Text = "WalkSpeed: " .. (UserConfig.WalkSpeedEnabled and "On" or "Off")
-WalkSpeedStatus.TextColor3 = UserConfig.WalkSpeedEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-WalkSpeedIcon.TextColor3 = UserConfig.WalkSpeedEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-
-if UserConfig.WalkSpeedEnabled then
-    updateWalkSpeed(UserConfig.WalkSpeedValue)
-end
-
--- Apply Infinite Jump
-if UserConfig.InfiniteJumpEnabled then
-    InfiniteJump()
-end
-
--- Apply NoClip
-if UserConfig.NoClipEnabled then
-    enableNoclip()
-end
-
--- Apply Theme
-applyTheme(UserConfig.Theme)
 
 local function updateUI()
     local currentTime = tick()
