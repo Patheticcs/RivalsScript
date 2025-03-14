@@ -16,7 +16,7 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
-local Keybind = Config.AimbotKeybind
+local Keybind = Enum.UserInputType.MouseButton2
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
