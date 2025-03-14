@@ -10,6 +10,7 @@ local function mainScript(UserConfig, isWhitelisted)
     local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
     local AimbotMode = UserConfig.AimbotMode
     local AimbotToggleEnabled = UserConfig.AimbotToggleEnabled
+end
 
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
