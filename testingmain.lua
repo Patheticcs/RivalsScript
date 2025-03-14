@@ -7,7 +7,6 @@ local CoreGui = game:GetService("CoreGui")
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
 
-local MOVE_SPEED = UserConfig.WalkSpeedValue
 local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
 local Keybind = UserConfig.AimbotKeybind
 local AimbotMode = UserConfig.AimbotMode
@@ -184,6 +183,8 @@ RunService.RenderStepped:Connect(function(deltaTime)
         end
     end
 end)
+
+local MOVE_SPEED = UserConfig.WalkSpeedValue
 
 local function createSlider(parent, position, text, minValue, maxValue, defaultValue, callback)
     local slider = Instance.new("Frame")
