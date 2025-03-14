@@ -22,4 +22,5 @@ local function isWhitelisted(player)
     return false
 end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscript/refs/heads/main/testingmain.lua", true))()
+local script = loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscript/refs/heads/main/testingmain.lua", true))()
+script(UserConfig, isWhitelisted)
