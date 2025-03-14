@@ -6,21 +6,17 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
-local Keybind = Enum.UserInputType.MouseButton2
 
-local SENSITIVITY_MULTIPLIER = 0.5
-
-local AimbotMode = "Hold"
-
-local ESPEnabled = false
-
-local AutoShootEnabled = false
-
-local InfiniteJumpEnabled = false
-
-local NoClipEnabled = false
-
-local WalkSpeedEnabled = false
+local MOVE_SPEED = UserConfig.WalkSpeedValue
+local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
+local Keybind = UserConfig.AimbotKeybind
+local AimbotMode = UserConfig.AimbotMode
+local ESPEnabled = UserConfig.ESPEnabled
+local AutoShootEnabled = UserConfig.AutoShootEnabled
+local InfiniteJumpEnabled = UserConfig.InfiniteJumpEnabled
+local NoClipEnabled = UserConfig.NoClipEnabled
+local WalkSpeedEnabled = UserConfig.WalkSpeedEnabled
+local CurrentTheme = UserConfig.Theme
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
@@ -74,9 +70,6 @@ local ThemeColors = {
     }
 }
 
-local CurrentTheme = "Dark"
-
-local MOVE_SPEED = 50
 local MAX_FORCE = 10000
 local DAMPENING = 0.9
 local moveKeys = {
