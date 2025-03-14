@@ -1,3 +1,16 @@
+local function mainScript(UserConfig, isWhitelisted)
+    local ESPEnabled = UserConfig.ESPEnabled
+    local AimbotEnabled = UserConfig.AimbotEnabled
+    local AutoShootEnabled = UserConfig.AutoShootEnabled
+    local InfiniteJumpEnabled = UserConfig.InfiniteJumpEnabled
+    local NoClipEnabled = UserConfig.NoClipEnabled
+    local WalkSpeedEnabled = UserConfig.WalkSpeedEnabled
+    local MOVE_SPEED = UserConfig.WalkSpeed
+    local Keybind = UserConfig.AimbotKeybind
+    local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
+    local AimbotMode = UserConfig.AimbotMode
+    local AimbotToggleEnabled = UserConfig.AimbotToggleEnabled
+
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -6,18 +19,6 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
-
-local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
-local Keybind = UserConfig.AimbotKeybind
-local MOVE_SPEED = UserConfig.WalkSpeed
-local AimbotMode = UserConfig.AimbotMode
-local AimbotEnabled = UserConfig.AimbotEnabled
-local ESPEnabled = UserConfig.ESPEnabled
-local AutoShootEnabled = UserConfig.AutoShootEnabled
-local InfiniteJumpEnabled = UserConfig.InfiniteJumpEnabled
-local NoClipEnabled = UserConfig.NoClipEnabled
-local WalkSpeedEnabled = UserConfig.WalkSpeedEnabled
-local AimbotToggleEnabled = UserConfig.AimbotToggleEnabled
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
