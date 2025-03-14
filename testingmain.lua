@@ -1,17 +1,3 @@
-local function mainScript(UserConfig, isWhitelisted)
-    local ESPEnabled = UserConfig.ESPEnabled
-    local AimbotEnabled = UserConfig.AimbotEnabled
-    local AutoShootEnabled = UserConfig.AutoShootEnabled
-    local InfiniteJumpEnabled = UserConfig.InfiniteJumpEnabled
-    local NoClipEnabled = UserConfig.NoClipEnabled
-    local WalkSpeedEnabled = UserConfig.WalkSpeedEnabled
-    local MOVE_SPEED = UserConfig.WalkSpeed
-    local Keybind = UserConfig.AimbotKeybind
-    local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
-    local AimbotMode = UserConfig.AimbotMode
-    local AimbotToggleEnabled = UserConfig.AimbotToggleEnabled
-end
-
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -20,6 +6,21 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
+local Keybind = Enum.UserInputType.MouseButton2
+
+local SENSITIVITY_MULTIPLIER = 0.5
+
+local AimbotMode = "Hold"
+
+local ESPEnabled = false
+
+local AutoShootEnabled = false
+
+local InfiniteJumpEnabled = false
+
+local NoClipEnabled = false
+
+local WalkSpeedEnabled = false
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
@@ -43,6 +44,7 @@ local MAX_SENSITIVITY = 1.5
 local BASE_SENSITIVITY = 0.5
 
 local MAX_AIMBOT_DISTANCE = 1000
+local AimbotToggleEnabled = false
 local IsRightClickAimbot = true
 
 local DefaultWalkSpeed = 16 
@@ -928,7 +930,7 @@ local function GetClosestPlayerToCursor()
     if not localRootPart then return nil end
 
     for _, player in pairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character and not isTeammate(player) and not isDead(player) and not isWhitelisted(player) then
+        if player ~= LocalPlayer and player.Character and not isTeammate(player) and not isDead(player) then
             local head = player.Character:FindFirstChild("Head")
             if head then
                 local distance = (localRootPart.Position - head.Position).Magnitude
