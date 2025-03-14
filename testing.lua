@@ -1,5 +1,5 @@
 local Config = {
-    SENSITIVITY_MULTIPLIER = 100,
+    SENSITIVITY_MULTIPLIER = 5,
     AimbotMode = "Hold",
     ESPEnabled = true,
     AutoShootEnabled = true,
@@ -12,5 +12,4 @@ local Config = {
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscript/refs/heads/main/testingmain.lua", true))()
 
--- Pass the Config table to the loadstring environment
 getfenv(1).Config = Config
