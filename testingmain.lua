@@ -6,21 +6,25 @@ local CoreGui = game:GetService("CoreGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = game.Workspace.CurrentCamera
-local Keybind = Enum.UserInputType.MouseButton2
+local Keybind = UserConfig.AimbotKeybind
 
-local SENSITIVITY_MULTIPLIER = 0.5
+local SENSITIVITY_MULTIPLIER = UserConfig.AimbotSensitivity
 
-local AimbotMode = "Hold"
+local MOVE_SPEED = UserConfig.WalkSpeedValue
 
-local ESPEnabled = false
+local CurrentTheme = UserConfig.Theme
 
-local AutoShootEnabled = false
+local AimbotMode = UserConfig.AimbotMode
 
-local InfiniteJumpEnabled = false
+local ESPEnabled = UserConfig.ESPEnabled
 
-local NoClipEnabled = false
+local AutoShootEnabled = UserConfig.AutoShootEnabled
 
-local WalkSpeedEnabled = false
+local InfiniteJumpEnabled = UserConfig.InfiniteJumpEnabled
+
+local NoClipEnabled = UserConfig.NoClipEnabled
+
+local WalkSpeedEnabled = UserConfig.WalkSpeedEnabled
 
 local SPACING = 20
 local ELEMENT_HEIGHT = 40
@@ -74,9 +78,6 @@ local ThemeColors = {
     }
 }
 
-local CurrentTheme = "Dark"
-
-local MOVE_SPEED = 50
 local MAX_FORCE = 10000
 local DAMPENING = 0.9
 local moveKeys = {
@@ -1457,6 +1458,39 @@ DiscordButton.MouseButton1Click:Connect(function()
     wait(2)
     DiscordButton.Text = "Discord"
 end)
+setESPState(UserConfig.ESPEnabled)
+ESPStatus.Text = "ESP: " .. (UserConfig.ESPEnabled and "On" or "Off")
+ESPStatus.TextColor3 = UserConfig.ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
+ESPIcon.TextColor3 = UserConfig.ESPEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
+
+-- Update Aimbot toggle
+setAimbotState(UserConfig.AimbotEnabled)
+AimbotStatus.Text = "Aimbot: " .. (UserConfig.AimbotEnabled and "On" or "Off")
+AimbotStatus.TextColor3 = UserConfig.AimbotEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
+AimbotIcon.TextColor3 = UserConfig.AimbotEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
+
+-- Update WalkSpeed slider
+WalkSpeedSlider:updateSlider(UserConfig.WalkSpeedValue)
+WalkSpeedStatus.Text = "WalkSpeed: " .. (UserConfig.WalkSpeedEnabled and "On" or "Off")
+WalkSpeedStatus.TextColor3 = UserConfig.WalkSpeedEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
+WalkSpeedIcon.TextColor3 = UserConfig.WalkSpeedEnabled and ThemeColors[CurrentTheme].Accent or Color3.fromRGB(150, 150, 170)
+
+if UserConfig.WalkSpeedEnabled then
+    updateWalkSpeed(UserConfig.WalkSpeedValue)
+end
+
+-- Apply Infinite Jump
+if UserConfig.InfiniteJumpEnabled then
+    InfiniteJump()
+end
+
+-- Apply NoClip
+if UserConfig.NoClipEnabled then
+    enableNoclip()
+end
+
+-- Apply Theme
+applyTheme(UserConfig.Theme)
 
 local function updateUI()
     local currentTime = tick()
