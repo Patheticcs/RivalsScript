@@ -10,7 +10,7 @@ local Config = {
     AimbotKeybind = Enum.UserInputType.MouseButton2
 }
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscriptapi/refs/heads/main/testingmain.lua", true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscript/refs/heads/main/testingmain.lua", true))()
 
 -- Pass the Config table to the loadstring environment
 getfenv(1).Config = Config
