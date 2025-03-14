@@ -931,26 +931,22 @@ local function GetClosestPlayerToCursor()
 
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character and not isTeammate(player) and not isDead(player) then
-            -- Check if the player has a "TeamateLabel"
-            local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
-            if humanoidRootPart and not humanoidRootPart:FindFirstChild("TeamateLabel") then
-                local head = player.Character:FindFirstChild("Head")
-                if head then
-                    local distance = (localRootPart.Position - head.Position).Magnitude
+            local head = player.Character:FindFirstChild("Head")
+            if head then
+                local distance = (localRootPart.Position - head.Position).Magnitude
 
-                    if distance <= MAX_AIMBOT_DISTANCE then
-                        local screenPosition, onScreen = Camera:WorldToViewportPoint(head.Position)
-                        if onScreen then
-                            local cursorDistance = (Vector2.new(screenPosition.X, screenPosition.Y) - mouseLocation).Magnitude
-                            if cursorDistance < shortestDistance then
-                                shortestDistance = cursorDistance
-                                closestPlayer = head
-                            end
-                        else
-                            if distance < shortestDistance then
-                                shortestDistance = distance
-                                closestPlayer = head
-                            end
+                if distance <= MAX_AIMBOT_DISTANCE then
+                    local screenPosition, onScreen = Camera:WorldToViewportPoint(head.Position)
+                    if onScreen then
+                        local cursorDistance = (Vector2.new(screenPosition.X, screenPosition.Y) - mouseLocation).Magnitude
+                        if cursorDistance < shortestDistance then
+                            shortestDistance = cursorDistance
+                            closestPlayer = head
+                        end
+                    else
+                        if distance < shortestDistance then
+                            shortestDistance = distance
+                            closestPlayer = head
                         end
                     end
                 end
