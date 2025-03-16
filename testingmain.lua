@@ -1,12 +1,10 @@
 return function(Config)
-    -- Services
     local UserInputService = game:GetService("UserInputService")
     local RunService = game:GetService("RunService")
     local Players = game:GetService("Players")
     local LocalPlayer = Players.LocalPlayer
     local Camera = game.Workspace.CurrentCamera
 
-    -- WalkSpeed Functionality
     local WalkSpeedEnabled = Config.WalkSpeed.Enabled
     local MOVE_SPEED = Config.WalkSpeed.Speed
     local WalkSpeedToggleKey = Config.WalkSpeed.ToggleKey
@@ -43,7 +41,6 @@ return function(Config)
 
     updateWalkSpeed(MOVE_SPEED)
 
-    -- ESP Functionality
     local ESPEnabled = Config.ESP.Enabled
     local ESPKeybind = Config.ESP.Keybind
     local MAX_DISTANCE_THRESHOLD = Config.ESP.MaxDistance
@@ -54,13 +51,10 @@ return function(Config)
         local localRootPart = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
         local targetRootPart = player.Character:FindFirstChild("HumanoidRootPart")
         if not localRootPart or not targetRootPart then return end
-
         if (localRootPart.Position - targetRootPart.Position).Magnitude > MAX_DISTANCE_THRESHOLD then return end
-
         if ESPHighlights[player] then
             ESPHighlights[player]:Destroy()
         end
-
         local highlight = Instance.new("Highlight")
         highlight.Adornee = player.Character
         highlight.FillColor = Color3.new(0, 0, 0)
@@ -144,7 +138,6 @@ return function(Config)
         end
     end)
 
-    -- Aimbot Functionality
     local AimbotEnabled = Config.Aimbot.Enabled
     local AimbotMode = Config.Aimbot.Mode
     local AimbotKeybind = Config.Aimbot.Keybind
@@ -284,7 +277,6 @@ return function(Config)
         end
     end)
 
-    -- AutoShoot Functionality
     local AutoShootEnabled = Config.AutoShoot.Enabled
     local AutoShootKeybind = Config.AutoShoot.Keybind
     local holdingMouse = false
