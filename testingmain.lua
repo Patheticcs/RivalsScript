@@ -4,7 +4,9 @@ return function(Config)
     local Players = game:GetService("Players")
     local LocalPlayer = Players.LocalPlayer
     local Camera = game.Workspace.CurrentCamera
+    local Mouse = LocalPlayer:GetMouse()
 
+    -- WalkSpeed
     local WalkSpeedEnabled = Config.WalkSpeed.Enabled
     local MOVE_SPEED = Config.WalkSpeed.Speed
     local WalkSpeedToggleKey = Config.WalkSpeed.ToggleKey
@@ -41,6 +43,7 @@ return function(Config)
 
     updateWalkSpeed(MOVE_SPEED)
 
+    -- ESP
     local ESPEnabled = Config.ESP.Enabled
     local ESPKeybind = Config.ESP.Keybind
     local MAX_DISTANCE_THRESHOLD = Config.ESP.MaxDistance
@@ -138,6 +141,7 @@ return function(Config)
         end
     end)
 
+    -- Aimbot
     local AimbotEnabled = Config.Aimbot.Enabled
     local AimbotMode = Config.Aimbot.Mode
     local AimbotKeybind = Config.Aimbot.Keybind
@@ -264,7 +268,7 @@ return function(Config)
                         local deltaX = (screenPosition.X - centerScreen.X) * SENSITIVITY_MULTIPLIER
                         local deltaY = (screenPosition.Y - centerScreen.Y) * SENSITIVITY_MULTIPLIER
 
-                        mousemoverel(deltaX, deltaY)
+                        mousemoverel(deltaX, deltaY) -- Replace with UserInputService.MouseDelta
                     end
                 else
                     Target = nil
@@ -277,6 +281,7 @@ return function(Config)
         end
     end)
 
+    -- AutoShoot
     local AutoShootEnabled = Config.AutoShoot.Enabled
     local AutoShootKeybind = Config.AutoShoot.Keybind
     local holdingMouse = false
@@ -296,12 +301,12 @@ return function(Config)
             if isTargetValid(Mouse.Target) then
                 if not holdingMouse then
                     holdingMouse = true
-                    mouse1press()
+                    mouse1press() -- Replace with UserInputService simulation
                 end
             else
                 if holdingMouse then
                     holdingMouse = false
-                    mouse1release()
+                    mouse1release() -- Replace with UserInputService simulation
                 end
             end
         end
@@ -312,7 +317,7 @@ return function(Config)
             AutoShootEnabled = not AutoShootEnabled
             if not AutoShootEnabled and holdingMouse then
                 holdingMouse = false
-                mouse1release()
+                mouse1release() -- Replace with UserInputService simulation
             end
         end
     end
