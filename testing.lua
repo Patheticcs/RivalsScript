@@ -1,15 +1,27 @@
-local scriptUrl = "https://raw.githubusercontent.com/Patheticcs/rivalsscript/refs/heads/main/testingmain.lua"
-local config = {
-    WalkSpeedEnabled = true,
-    MOVE_SPEED = 100,
-    SENSITIVITY_MULTIPLIER = 0.2,
-    MAX_AIMBOT_DISTANCE = 1500,
-    AimbotMode = "Toggle",
-    ESPEnabled = true,
-    ESPKeybind = Enum.KeyCode.Q,
-    autoShootEnabled = true,
-    toggleKey = Enum.KeyCode.R
+-- Configuration Table (Customize these settings)
+local Config = {
+    WalkSpeed = {
+        Enabled = false, -- Toggle WalkSpeed
+        Speed = 50,      -- WalkSpeed value
+        ToggleKey = Enum.KeyCode.F -- Key to toggle WalkSpeed
+    },
+    ESP = {
+        Enabled = false, -- Toggle ESP
+        Keybind = Enum.KeyCode.E, -- Key to toggle ESP
+        MaxDistance = 1000 -- Maximum distance for ESP
+    },
+    Aimbot = {
+        Enabled = false, -- Toggle Aimbot
+        Mode = "Hold",   -- "Hold" or "Toggle"
+        Keybind = Enum.UserInputType.MouseButton2, -- Right Click
+        Sensitivity = 0.1, -- Aimbot sensitivity
+        MaxDistance = 1000 -- Maximum distance for Aimbot
+    },
+    AutoShoot = {
+        Enabled = false, -- Toggle AutoShoot
+        Keybind = Enum.KeyCode.T -- Key to toggle AutoShoot
+    }
 }
 
-local MainScript = loadstring(game:HttpGet(scriptUrl, true))()
-MainScript(config)
+-- Load the script and pass the configuration
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Patheticcs/rivalsscript/refs/heads/main/testingmain.lua", true))(Config)
